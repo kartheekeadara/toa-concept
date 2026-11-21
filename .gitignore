@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# photo pack for outside retouching (copies of public/photos/real/originals)
+/retouch-pack/

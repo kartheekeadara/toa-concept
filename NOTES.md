@@ -339,3 +339,15 @@ User direction: modern, sleek, minimal — **not** the Market Hall colour-field 
 **Review:** `/styleguide` (review mode only). Design gate: not yet held — all sections were built in one pass; owner/Kartheek review at 390px and 1440px still pending.
 
 **Still open:** Lighthouse accessibility score not yet captured (CLI run failed). Country brand names are `CONFIRM_*` placeholders, not yet verified against store photos.
+
+## Round 8: Clay-style hero concepts (Nov 2026)
+
+**Direction:** Clay.global craft tuned for a warm local grocery — Onest, warm neutrals (`clay.*` tokens), full-width media, Lenis smooth scroll + Motion reveals. Homepage at `/` unchanged (Quiet White); review at **`/concepts/a` (Reel), `/concepts/b` (Counter), `/concepts/c` (Table)** — each includes shared header + statement.
+
+**Imagery:** Unbranded studio shots in `public/photos/concept/`; log in `docs/concept-imagery-log.md`. “Concept image” tag in review mode only.
+
+**Contrast:** Clay pairs added to `scripts/contrast.mjs` — all PASS.
+
+**Screenshots:** `screenshots/concept-{a,b,c}-{390,1440}.png` (review dev on 3100). **Pick A, B, or C before building the rest of the page.**
+
+**Headline (draft):** “A European market, right off Providence Road.” Alternates in plan if needed at review.

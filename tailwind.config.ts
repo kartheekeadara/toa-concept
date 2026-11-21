@@ -12,7 +12,7 @@ export default {
         // `deep` is a slightly darker red for any background that carries text (white 5.85:1)
         // and for small red text on cream (5.16:1). `light` is for small red text on brand-ink (5.00:1).
         "brand-red": { DEFAULT: "#EC1D24", deep: "#C8161D", light: "#FF8A85" },
-        // Logo charcoal. Body text, ticker, sticky bar, footer.
+        // Logo charcoal. Body text, sticky bar, menu board, footer.
         "brand-ink": { DEFAULT: "#3A3A3A", soft: "#5F5A55" },
         stone: "#B9A992",
       },
@@ -23,12 +23,10 @@ export default {
       keyframes: {
         slowzoom: { "0%": { transform: "scale(1)" }, "100%": { transform: "scale(1.1)" } },
         pop: { "0%": { opacity: "0", transform: "scale(0.85)" }, "100%": { opacity: "1", transform: "scale(1)" } },
-        marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } },
       },
       animation: {
         slowzoom: "slowzoom 24s ease-out forwards",
         pop: "pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both",
-        marquee: "marquee 45s linear infinite",
       },
     },
   },

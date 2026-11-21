@@ -11,6 +11,11 @@ body {
   color: #3a3a3a; /* brand-ink */
 }
 
+/* Fraunces: a touch of softness on the display serif */
+.font-serif {
+  font-variation-settings: "SOFT" 50;
+}
+
 /* Fallback focus ring for anything without its own: follows the text colour, so it shows on cream and on red/ink. */
 a:focus-visible,
 button:focus-visible,
@@ -19,12 +24,6 @@ button:focus-visible,
   outline-offset: 3px;
 }
 
-/* Announcement ticker (components/Ticker.tsx): pauses on hover, keyboard focus, or the pause button. */
-.ticker:hover .ticker-track,
-.ticker:focus-within .ticker-track,
-.ticker[data-paused="true"] .ticker-track {
-  animation-play-state: paused;
-}
 
 /* Scroll fade-in (see components/FadeIn.tsx) */
 .fade-in {
@@ -47,21 +46,12 @@ button:focus-visible,
     transition: none;
   }
   .animate-slowzoom,
-  .animate-pop,
-  .animate-marquee {
+  .animate-pop {
     animation: none !important;
   }
-  /* static ticker: one copy of the lines, wrapped and centred */
-  .ticker-track {
-    width: 100% !important;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .ticker-dup {
-    display: none !important;
-  }
-  .follow-photo {
+  .motion-safe-transform {
     transition: opacity 150ms linear !important;
+    transform: none !important;
   }
 }
 

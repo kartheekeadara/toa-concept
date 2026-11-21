@@ -22,7 +22,7 @@ const filled = (v: string | null | undefined): v is string => typeof v === "stri
 export const STORE = {
   name: "Taste of Europe",
   nameSuffix: "Gourmet Foods",
-  street: "11926 Providence Rd W",
+  street: "11926 Providence Rd\u00A0W", // non-breaking space keeps "Rd W" together
   cityLine: "Charlotte, NC 28277",
   phone: filled(store.phone) ? store.phone : null,
   email: filled(store.email) ? store.email : null,
@@ -47,15 +47,6 @@ export const HOURS: StoreHours = {
   timezone: store.timezone,
   week: store.hours as StoreHours["week"],
 };
-
-/**
- * Ticker lines under the nav, from data/store.json `announcements`.
- * Examples of what the owner might put there:
- *   "Holiday candy baskets are in"
- *   "Fresh smoked fish this week"
- * Unfilled {{ANNOUNCEMENT_N}} lines are dropped in presentation mode; with none left the bar isn't rendered.
- */
-export const ANNOUNCEMENTS: string[] = store.announcements.filter((l) => filled(l) && !(PRESENTATION && isPlaceholder(l)));
 
 /** Holiday hours rows in Visit us, from data/store.json `holidayHours`. Same placeholder rule as above. */
 export const HOLIDAY_HOURS = store.holidayHours.filter(
@@ -97,8 +88,6 @@ export const COUNTRIES = [
 
 export const COPY = {
   // COPY-DRAFT
-  heroEyebrow: "European grocery & deli · Charlotte",
-  // COPY-DRAFT
   heroTagline: "A little corner of Europe, right here in Charlotte.",
 
   // COPY-DRAFT
@@ -114,8 +103,8 @@ export const COPY = {
   // COPY-DRAFT
   insideEyebrow: "What's inside",
 
-  mosaicEyebrow: "Inside the store",
-  mosaicLine: "Come hungry. Leave with a full bag.",
+  insideStoreEyebrow: "Inside the store",
+  insideStoreLine: "Come hungry. Leave with a full bag.",
 
   // COPY-DRAFT
   countryEyebrow: "Shop by country",
@@ -141,13 +130,20 @@ export const CATEGORIES = [
   { name: "Wine", line: "A wine wall with bottles for the table and for gifts.", photo: "/photos/real/wine-display.jpg", alt: "Wine bottles in wooden crates beside a barrel" },
 ];
 
-/** "Inside the store" mosaic. First photo is the big tile on desktop. No captions. */
-export const MOSAIC = [
-  { photo: "/photos/real/wine-barrels.jpg", alt: "Wine shelves and oak barrels by the front windows" },
-  // candy-baskets-2 swapped for candy-baskets-4: a staff member's face is visible in candy-baskets-2
-  { photo: "/photos/real/candy-baskets-4.jpg", alt: "A stand of wicker baskets filled with wrapped candies" },
+/** Hero photo tiles (staggered on desktop, swipeable strip on mobile). */
+export const HERO_TILES = [
+  { photo: "/photos/real/sweets-display.jpg", alt: "Wooden tables of chocolate bars and wicker baskets of sweets", shape: "aspect-[4/5]" },
+  // deli-case-2 has a child at the counter, so deli-case-3 is used instead
+  { photo: "/photos/real/deli-case-3.jpg", alt: "Smoked meats and sausages in the deli case", shape: "aspect-[4/3]" },
+  { photo: "/photos/real/candy-baskets-4.jpg", alt: "A stand of wicker baskets filled with wrapped candies", shape: "aspect-[4/3]" },
+  { photo: "/photos/real/chocolates-basket.jpg", alt: "A wicker basket of boxed chocolates and wafers", shape: "aspect-[4/5]" },
+];
+
+/** "Inside the store" photo stack, one photo at a time. No captions. */
+export const STORE_PHOTOS = [
   { photo: "/photos/real/interior-wide-1.jpg", alt: "Wide view of the store with display tables of sweets" },
-  { photo: "/photos/real/smoked-fish.jpg", alt: "A tray of herring and salmon in the cooler" },
-  { photo: "/photos/real/sweets-display.jpg", alt: "Tables of chocolate bars and baskets of sweets" },
+  { photo: "/photos/real/wine-barrels.jpg", alt: "Wine shelves and oak barrels by the front windows" },
   { photo: "/photos/real/jars-honey.jpg", alt: "Shelves of honey and preserves in jars" },
+  { photo: "/photos/real/smoked-fish.jpg", alt: "A tray of herring and salmon in the cooler" },
+  { photo: "/photos/real/sweets-boxes.jpg", alt: "Boxed chocolates and sweets on a wooden table" },
 ];

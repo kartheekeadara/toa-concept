@@ -110,6 +110,22 @@ CHOPT) and were translated to the web.
 - The footer line "Concept mockup. Not the official website." now shows in both modes, because the contact details are mockup data.
 - Lighthouse accessibility (mobile) scores 100 in both modes.
 
+## concept-v2, round 3 (2026-11-21): redesign from Mobbin research
+- **Removed:** the scrolling announcement bar (component, CSS and the `announcements` data), the hero eyebrow, and the "The deli counter" label.
+- **Type:** Fraunces (via `next/font`, SOFT 50) replaces Cormorant Garamond. Inter stays for body text.
+- **Nav** (after Monte): sticky. Links on the left, logo in the centre, and on the right a live "Open today · until 7:00 PM" plus Call.
+  On mobile it's the logo, a short status and a Menu button that opens a full-screen sheet (portalled to `<body>`, Esc closes it, focus stays inside).
+- **Hero** (after Savor and Little Amps): type on cream with four staggered real photos, and no overlay. On phones the photos become a swipeable strip.
+- **Holidays:** sticky headline, plus a Christmas / Orthodox Christmas hours table from `holidayHours` and Call ahead.
+  The three photos are staggered (two up, one wide).
+- **What's inside:** an aisle guide built as vertical tabs (hover, focus, click or arrow keys) with one big photo. On phones it's a swipeable card row.
+- **Inside the store:** a photo stack with prev/next buttons and no autoplay (after Monte). The "Open seven days a week" line comes from the hours data.
+- **Shop by country:** a charcoal menu board with dotted leaders.
+- **Visit and footer** are merged (after Monte's footer): address and storefront photo, then Hours | Holiday hours | Contact, then a large wordmark and the disclaimer.
+- **Photos:** deli-case-3 replaces deli-case-2, which has a child at the counter.
+- `scripts/contrast.mjs` measured cream text over the old photo hero. The hero no longer has text over a photo, so it doesn't apply any more.
+- Lighthouse accessibility scores 100 on mobile (both modes) and desktop.
+
 ## Photos (Part 1, v1 only)
 All from Unsplash, free under the [Unsplash License](https://unsplash.com/license)
 (free for commercial use, no attribution required, credit given anyway).

@@ -3,18 +3,19 @@ import FadeIn from "@/components/FadeIn";
 import ReviewMode from "@/components/ReviewMode";
 import BoardBuilder from "@/components/BoardBuilder";
 import StickyBar from "@/components/StickyBar";
-import Ticker from "@/components/Ticker";
-import CategoryList from "@/components/CategoryList";
-import { Ph, Val, Eyebrow, btnBase, h2Class, PinIcon, PhoneIcon, InstagramIcon, ArrowIcon } from "@/components/ui";
-import { PRESENTATION, isPlaceholder } from "@/lib/flags";
-import { formatWeek, hoursConfigured } from "@/lib/hours";
+import Nav from "@/components/Nav";
+import AisleGuide from "@/components/AisleGuide";
+import PhotoStack from "@/components/PhotoStack";
+import { Ph, Val, btnBase, h2Class, PinIcon, PhoneIcon, InstagramIcon, ArrowIcon } from "@/components/ui";
+import { PRESENTATION } from "@/lib/flags";
+import { formatWeek, hoursConfigured, DAYS } from "@/lib/hours";
 import {
   STORE,
   COPY,
+  HERO_TILES,
   HOLIDAY_ITEMS,
   HOLIDAY_HOURS,
   COUNTRIES,
-  MOSAIC,
   DIRECTIONS_URL,
   CALL_HREF,
   INSTAGRAM_URL,
@@ -22,22 +23,7 @@ import {
   SHOW_BUILDER,
 } from "./content";
 
-/** A headline that may still be a {{PLACEHOLDER}}: chip in review mode, nothing at all in presentation mode. */
-function Headline({ v, className, id }: { v: string; className: string; id?: string }) {
-  if (isPlaceholder(v)) {
-    return PRESENTATION ? null : <h2 id={id} className={className}><Ph className="!whitespace-normal break-all !text-[1.25rem] sm:!text-3xl">{v}</Ph></h2>;
-  }
-  return <h2 id={id} data-draft className={className}>{v}</h2>;
-}
-
-const NAV = [
-  { href: "#holidays", label: "Holidays" },
-  { href: "#deli", label: "Deli" },
-  { href: "#inside", label: "Inside" },
-  { href: "#visit", label: "Visit" },
-];
-
-/** Small uppercase label; `onInk` uses the lighter red that passes AA on charcoal. */
+/** Small uppercase label. `onInk` uses the lighter red that passes AA on charcoal. */
 function Label({ children, id, onInk = false, className = "" }: { children: string; id?: string; onInk?: boolean; className?: string }) {
   return (
     <p id={id} data-draft className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${onInk ? "text-brand-red-light" : "text-brand-red-deep"} ${className}`}>
@@ -46,106 +32,116 @@ function Label({ children, id, onInk = false, className = "" }: { children: stri
   );
 }
 
-/** Mosaic tile layout (desktop): first tile is 2×2, the other five fill a 3-column grid around it. */
-const TILE = [
-  "md:col-span-2 md:row-span-2",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
+/** The holiday rows shown in the holidays section: the two Christmases and their eves. Full list lives in the footer. */
+const HOLIDAY_GLANCE = HOLIDAY_HOURS.filter((r) => ["Dec 24", "Dec 25", "Jan 6", "Jan 7"].includes(r.date));
+const HOLIDAY_NAMES: Record<string, string> = { "Dec 24": "Christmas Eve", "Dec 25": "Christmas Day", "Jan 7": "Orthodox Christmas" };
 
 /**
- * Section order: nav → ticker → hero → holidays → order ahead (or platter builder) → categories
- * → inside the store → countries → visit → footer.
+ * Section order: nav → hero → holidays → order ahead (or platter builder) → what's inside (aisle guide)
+ * → inside the store (photo stack) → shop by country (menu board) → visit + footer.
  * Not rendered (components/data kept): Just arrived (data/arrivals.json), Instagram grid, deli counter, map.
  */
 export default function Home() {
   const hoursReady = hoursConfigured(HOURS);
+  const openEveryDay = hoursReady && DAYS.every((d) => HOURS.week[d] !== null);
 
   return (
     <>
-      {/* NAV */}
-      <header className="bg-cream">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 sm:px-10">
-          <a href="#top" className="rounded-md focus-visible:outline-brand-ink">
-            <Image src="/photos/real/logo.png" alt="Taste of Europe Gourmet Foods, home" width={753} height={355} priority className="h-10 w-auto" />
-          </a>
-          <nav aria-label="Main">
-            <ul className="flex items-center gap-1">
-              {NAV.map((n) => (
-                <li key={n.href} className={n.href === "#visit" ? "" : "hidden md:block"}>
-                  <a href={n.href} className="inline-flex h-11 items-center rounded-full px-4 text-[15px] font-medium text-brand-ink underline-offset-4 hover:text-brand-red-deep hover:underline">
-                    {n.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </header>
-
-      <Ticker />
+      <Nav />
 
       <main id="top" className="overflow-x-clip">
         <ReviewMode />
         <StickyBar />
 
-        {/* HERO */}
-        <section className="relative isolate flex min-h-[calc(100svh-6.5rem)] items-end overflow-hidden bg-brand-ink text-cream">
-          <Image
-            src="/photos/real/sweets-display.jpg"
-            alt="Wooden tables of chocolate bars and wicker baskets of sweets inside Taste of Europe"
-            fill
-            priority
-            sizes="100vw"
-            className="-z-10 animate-slowzoom object-cover"
-          />
-          {/* One brand-ink gradient from the bottom-left corner (behind the text), easing through ~55% to clear.
-              On phones the text spans the full width, so it runs bottom-up instead of diagonal.
-              No flat wash: the top of the photo stays bright. Measured with scripts/contrast.mjs. */}
-          <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(58,58,58,0.95)_0%,rgba(58,58,58,0.85)_45%,rgba(58,58,58,0.55)_70%,rgba(58,58,58,0)_100%)] lg:bg-[linear-gradient(to_top_right,rgba(58,58,58,0.95)_0%,rgba(58,58,58,0.85)_45%,rgba(58,58,58,0.55)_68%,rgba(58,58,58,0)_92%)]" />
-
-          {/* extra bottom padding on mobile so the sticky bar never covers the hero buttons */}
-          <div className="mx-auto w-full max-w-6xl px-6 pb-24 pt-32 sm:px-10 md:pb-16 lg:pb-24">
-            <FadeIn className="[text-shadow:0_1px_18px_rgba(30,30,30,0.55)]">
-              <Eyebrow light>{COPY.heroEyebrow}</Eyebrow>
-              <h1 className="font-serif leading-[0.9]">
-                <span className="block text-[4.25rem] font-medium sm:text-8xl lg:text-[9rem]">{STORE.name}</span>
-                <span className="mt-2 block text-2xl italic text-cream sm:text-3xl lg:text-4xl">{STORE.nameSuffix}</span>
-              </h1>
-              <p data-draft className="mt-6 max-w-md text-lg leading-relaxed text-cream sm:text-xl">
-                {COPY.heroTagline}
-              </p>
-            </FadeIn>
-
-            <FadeIn delay={150} className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={`${btnBase} bg-brand-red-deep text-white hover:bg-[#b0131a] focus-visible:outline-white`}>
+        {/* HERO: type on cream + staggered real photos. No overlay needed. */}
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-10 sm:px-10 sm:pt-14 lg:grid lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-24 lg:pt-12">
+          <FadeIn className="lg:col-span-6">
+            <h1 className="font-serif font-medium leading-[0.92] tracking-[-0.01em]">
+              <span className="block text-[4.2rem] sm:text-8xl lg:text-[7.25rem]">{STORE.name}</span>
+              <span className="mt-3 block text-[1.6rem] italic text-brand-ink-soft sm:text-3xl">{STORE.nameSuffix}</span>
+            </h1>
+            <p data-draft className="mt-6 max-w-md text-lg leading-relaxed text-brand-ink-soft sm:text-xl">
+              {COPY.heroTagline}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={`${btnBase} bg-brand-red-deep text-white hover:bg-[#b0131a] focus-visible:outline-brand-ink`}>
                 <PinIcon /> Get directions
               </a>
-              <a href="#visit" className={`${btnBase} border-2 border-white bg-brand-ink/50 text-white hover:bg-white/15 focus-visible:outline-white`}>
+              <a href="#visit" className={`${btnBase} border-2 border-brand-ink/80 text-brand-ink hover:bg-brand-ink/5 focus-visible:outline-brand-ink`}>
                 See holiday hours
               </a>
-            </FadeIn>
+            </div>
+          </FadeIn>
+
+          {/* mobile: swipeable strip */}
+          <ul aria-label="Photos from the store" className="-mx-6 mt-10 flex snap-x snap-mandatory scroll-px-6 items-end gap-3 overflow-x-auto px-6 py-1 [scrollbar-width:none] focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-ink sm:-mx-10 sm:px-10 lg:hidden [&::-webkit-scrollbar]:hidden">
+            {HERO_TILES.map((t, i) => (
+              <li key={t.photo} className={`relative shrink-0 snap-start overflow-hidden rounded-2xl bg-cream-deep ${i % 2 ? "h-56 w-[52%]" : "h-72 w-[60%]"} sm:w-[38%]`}>
+                <Image src={t.photo} alt={t.alt} fill priority={i < 2} sizes="60vw" className="object-cover" />
+              </li>
+            ))}
+          </ul>
+
+          {/* desktop: two staggered columns */}
+          <div className="hidden grid-cols-2 gap-4 lg:col-span-6 lg:grid">
+            {[0, 1].map((col) => (
+              <div key={col} className={`flex flex-col gap-4 ${col ? "pt-16" : ""}`}>
+                {HERO_TILES.filter((_, i) => i % 2 === col).map((t, j) => (
+                  <FadeIn key={t.photo} delay={(col * 2 + j) * 90}>
+                    <div className={`relative overflow-hidden rounded-[1.5rem] bg-cream-deep ${t.shape}`}>
+                      <Image src={t.photo} alt={t.alt} fill priority sizes="25vw" className="object-cover" />
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* HOLIDAYS */}
-        <section id="holidays" aria-labelledby="holiday-title" className="scroll-mt-4 px-3 py-14 sm:px-6 sm:py-20">
-          <div className="mx-auto max-w-6xl rounded-[2rem] bg-cream-deep px-6 py-12 sm:px-10 sm:py-16 lg:px-14">
-            <FadeIn className="max-w-2xl">
-              <Label className="mb-4">{COPY.holidayEyebrow}</Label>
-              <Headline id="holiday-title" v={COPY.holidayTitle} className={h2Class} />
-            </FadeIn>
+        {/* HOLIDAYS: sticky headline + key dates on the left, staggered photos on the right */}
+        <section id="holidays" aria-labelledby="holiday-title" className="scroll-mt-20 bg-cream-deep">
+          <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-24 lg:grid lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-28">
+                <Label className="mb-4">{COPY.holidayEyebrow}</Label>
+                <h2 id="holiday-title" data-draft className={h2Class}>{COPY.holidayTitle}</h2>
 
-            {/* mobile: horizontal snap row with the next card peeking in; desktop: 3 columns */}
-            <ul className="-mx-6 mt-10 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:-mx-10 sm:scroll-px-10 sm:px-10 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+                {HOLIDAY_GLANCE.length > 0 && (
+                  <table className="mt-8 w-full max-w-sm text-[15px]">
+                    <caption className="mb-2 text-left text-[13px] font-semibold text-brand-ink">Christmas and Orthodox Christmas hours</caption>
+                    <tbody>
+                      {HOLIDAY_GLANCE.map((r) => (
+                        <tr key={r.date} className="border-t border-brand-ink/10">
+                          <th scope="row" className="py-2.5 pr-4 text-left align-top font-normal">
+                            <span className="font-medium">{r.date}</span>
+                            <span className="block text-[13px] text-brand-ink-soft">{("note" in r && r.note) || HOLIDAY_NAMES[r.date]}</span>
+                          </th>
+                          <td className="whitespace-nowrap py-2.5 text-right align-top">{r.hours}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+
+                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                  <a href={CALL_HREF} className={`${btnBase} h-12 bg-brand-red-deep px-6 text-white hover:bg-[#b0131a] focus-visible:outline-brand-ink`}>
+                    <PhoneIcon /> Call ahead
+                  </a>
+                  <a href="#visit" className="group inline-flex items-center gap-2 rounded text-[15px] font-medium underline-offset-4 hover:underline">
+                    All holiday hours
+                    <span className="text-brand-red-deep transition-transform group-hover:translate-x-1 motion-reduce:transition-none"><ArrowIcon /></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* photos: mobile snap row, desktop staggered (two up, one wide) */}
+            <ul className="-mx-6 mt-12 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:-mx-10 sm:px-10 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 lg:col-span-7 lg:mt-0 [&::-webkit-scrollbar]:hidden">
               {HOLIDAY_ITEMS.map((h, i) => (
-                <li key={h.name} className="w-[78%] shrink-0 snap-start sm:w-[45%] md:w-auto">
+                <li key={h.name} className={`w-[78%] shrink-0 snap-start md:w-auto ${i === 1 ? "md:mt-20" : ""} ${i === 2 ? "md:col-span-2" : ""}`}>
                   <FadeIn delay={i * 90}>
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-cream shadow-[0_18px_40px_-24px_rgba(58,58,58,0.6)]">
-                      <Image src={h.photo} alt={h.alt} fill sizes="(min-width: 768px) 33vw, 78vw" className="object-cover" />
+                    <div className={`relative overflow-hidden rounded-[1.5rem] bg-cream ${i === 2 ? "aspect-[3/4] md:aspect-[16/10]" : "aspect-[3/4]"}`}>
+                      <Image src={h.photo} alt={h.alt} fill sizes={i === 2 ? "(min-width: 1024px) 55vw, 78vw" : "(min-width: 1024px) 28vw, 78vw"} className="object-cover" />
                     </div>
                     <a href="#visit" data-draft className="group mt-4 inline-flex items-center gap-2 rounded text-[17px] font-medium text-brand-ink underline-offset-4 hover:underline">
                       {h.name}
@@ -162,15 +158,14 @@ export default function Home() {
         {SHOW_BUILDER ? (
           <BoardBuilder />
         ) : (
-          <section id="deli" aria-labelledby="order-title" className="mx-auto max-w-6xl scroll-mt-4 px-6 py-14 sm:px-10 sm:py-20">
+          <section id="deli" aria-labelledby="order-title" className="mx-auto max-w-6xl scroll-mt-20 px-6 py-16 sm:px-10 sm:py-24">
             <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
               <FadeIn>
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-cream-deep">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-cream-deep">
                   <Image src="/photos/real/deli-case-1.jpg" alt="The Taste of Europe deli case" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
                 </div>
               </FadeIn>
               <FadeIn delay={100}>
-                <Label className="mb-4">The deli counter</Label>
                 <h2 id="order-title" className={h2Class}>{COPY.orderTitle}</h2>
                 <p data-draft className="mt-5 max-w-md text-[17px] leading-relaxed text-brand-ink-soft"><Val v={COPY.orderBody} /></p>
                 <div className="mt-8">
@@ -184,127 +179,67 @@ export default function Home() {
           </section>
         )}
 
-        {/* CATEGORIES */}
-        <section aria-labelledby="inside-title" className="border-t border-brand-ink/10 py-16 sm:py-24">
+        {/* WHAT'S INSIDE: aisle guide */}
+        <section aria-labelledby="aisles-title" className="border-t border-brand-ink/10 py-16 sm:py-24">
           <div className="mx-auto max-w-6xl px-6 sm:px-10">
-            <Label id="inside-title" className="mb-6">{COPY.insideEyebrow}</Label>
-            <CategoryList />
+            <h2 id="aisles-title" data-draft className={`${h2Class} mb-10 sm:mb-12`}>{COPY.insideEyebrow}</h2>
+            <AisleGuide />
           </div>
         </section>
 
-        {/* INSIDE THE STORE: photo mosaic, no captions */}
-        <section id="inside" aria-labelledby="mosaic-title" className="scroll-mt-4 pb-16 sm:pb-24">
-          <div className="mx-auto max-w-6xl px-6 sm:px-10">
-            <FadeIn className="mb-8 flex flex-col gap-3 sm:mb-10">
-              <Label>{COPY.mosaicEyebrow}</Label>
-              <h2 id="mosaic-title" data-draft className="font-serif text-[2rem] font-medium leading-tight sm:text-5xl">{COPY.mosaicLine}</h2>
-            </FadeIn>
-            <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:auto-rows-[220px] md:grid-cols-3 lg:auto-rows-[260px]">
-              {MOSAIC.map((m, i) => (
-                <li key={m.photo} className={`relative aspect-square overflow-hidden rounded-2xl bg-cream-deep md:aspect-auto ${TILE[i]}`}>
-                  <Image src={m.photo} alt={m.alt} fill sizes={i === 0 ? "(min-width: 768px) 66vw, 50vw" : "(min-width: 768px) 33vw, 50vw"} className="object-cover" />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* COUNTRIES */}
-        <section aria-labelledby="country-title" className="bg-cream-deep">
-          <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-24">
-            <FadeIn className="max-w-2xl">
-              <Label className="mb-4">{COPY.countryEyebrow}</Label>
-              <Headline id="country-title" v={COPY.countryTitle} className={h2Class} />
-            </FadeIn>
-            {/* desktop: 3 columns; mobile: snap-scroll row */}
-            <ul aria-label="Countries" className="-mx-6 mt-10 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 py-1 [scrollbar-width:none] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-ink sm:-mx-10 sm:scroll-px-10 sm:px-10 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
-              {COUNTRIES.map((c) => (
-                <li key={c.name} className="w-[70%] shrink-0 snap-start rounded-2xl border-t-2 border-brand-red bg-cream px-6 pb-6 pt-5 sm:w-[42%] md:w-auto">
-                  <h3 className="font-serif text-[1.9rem] font-medium leading-tight">{c.name}</h3>
-                  <p className="mt-2 text-[15px] text-brand-ink-soft">{c.items.join(" · ")}</p>
-                </li>
-              ))}
-            </ul>
-            <p data-draft className="mt-8 text-[15px] text-brand-ink-soft">{COPY.countryNote}</p>
-          </div>
-        </section>
-
-        {/* VISIT US */}
-        <section id="visit" aria-labelledby="visit-title" className="scroll-mt-4 bg-brand-ink text-cream">
-          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-12 lg:gap-16">
+        {/* INSIDE THE STORE: photo stack + one line */}
+        <section id="inside" aria-labelledby="store-title" className="scroll-mt-20 bg-cream-deep">
+          <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 sm:px-10 sm:py-24 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-6">
+              <PhotoStack />
+            </div>
             <FadeIn className="lg:col-span-6">
-              <h2 id="visit-title" data-draft className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-red-light">{COPY.visitEyebrow}</h2>
+              <Label className="mb-4">{COPY.insideStoreEyebrow}</Label>
+              <h2 id="store-title" data-draft className={h2Class}>{COPY.insideStoreLine}</h2>
+              <p className="mt-6 max-w-md text-[17px] leading-relaxed text-brand-ink-soft">
+                {STORE.street}, {STORE.cityLine.replace(/ \d{5}$/, "")}.
+                {openEveryDay && " Open seven days a week."}
+              </p>
+              <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="group mt-6 inline-flex items-center gap-2 rounded text-[17px] font-medium underline-offset-4 hover:underline">
+                Get directions
+                <span className="text-brand-red-deep transition-transform group-hover:translate-x-1 motion-reduce:transition-none"><ArrowIcon /></span>
+              </a>
+            </FadeIn>
+          </div>
+        </section>
 
-              <address className="mt-4 font-serif text-[2rem] font-medium not-italic leading-[1.1] sm:text-5xl">
+        {/* SHOP BY COUNTRY: deli menu board */}
+        <section aria-labelledby="country-title" className="px-3 py-14 sm:px-6 sm:py-20">
+          <div className="mx-auto max-w-6xl rounded-[2rem] bg-brand-ink px-6 py-12 text-cream sm:px-12 sm:py-16 lg:px-16">
+            <Label onInk className="mb-4">{COPY.countryEyebrow}</Label>
+            <h2 id="country-title" data-draft className={h2Class}>{COPY.countryTitle}</h2>
+            <ul className="mt-10 grid gap-x-16 md:grid-cols-2">
+              {COUNTRIES.map((c) => (
+                <li key={c.name} className="border-b border-cream/15 py-4 sm:flex sm:items-baseline sm:gap-3">
+                  <span className="font-serif text-[1.75rem] font-medium leading-tight">{c.name}</span>
+                  <span aria-hidden className="hidden flex-1 translate-y-[-0.3em] border-b-2 border-dotted border-cream/30 sm:block" />
+                  <span className="mt-1 block text-[15px] text-cream/85 sm:mt-0 sm:text-right">{c.items.join(", ")}</span>
+                </li>
+              ))}
+            </ul>
+            <p data-draft className="mt-8 text-[15px] text-cream/85">{COPY.countryNote}</p>
+          </div>
+        </section>
+      </main>
+
+      {/* VISIT + FOOTER (one block) */}
+      <footer id="visit" aria-labelledby="visit-title" className="scroll-mt-16 bg-brand-ink pb-[76px] text-cream md:pb-0">
+        <div className="mx-auto max-w-6xl px-6 pt-16 sm:px-10 sm:pt-24">
+          {/* find us */}
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-14">
+            <div>
+              <h2 id="visit-title" data-draft className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-red-light">{COPY.visitEyebrow}</h2>
+              <address className="mt-4 font-serif text-[2.2rem] font-medium not-italic leading-[1.05] sm:text-5xl lg:text-[2.9rem] xl:text-[3.1rem]">
                 {STORE.street}
                 <br />
                 {STORE.cityLine}
               </address>
-
-              <dl className="mt-10 space-y-8 text-[17px]">
-                {(hoursReady || !PRESENTATION) && (
-                  <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Hours</dt>
-                    <dd className="mt-3">
-                      {hoursReady ? (
-                        <table className="w-full max-w-sm">
-                          <tbody>
-                            {formatWeek(HOURS).map((r) => (
-                              <tr key={r.days}>
-                                <th scope="row" className="py-1 pr-6 text-left font-normal">{r.days}</th>
-                                <td className="whitespace-nowrap py-1">{r.time}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      ) : (
-                        <Ph onDark>{"{{HOURS}}"}</Ph>
-                      )}
-                    </dd>
-                  </div>
-                )}
-                {HOLIDAY_HOURS.length > 0 && (
-                  <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Holiday hours</dt>
-                    <dd className="mt-3">
-                      <table className="w-full max-w-md border-t border-cream/20">
-                        <thead className="sr-only">
-                          <tr><th scope="col">Date</th><th scope="col">Hours</th></tr>
-                        </thead>
-                        <tbody>
-                          {HOLIDAY_HOURS.map((r, i) => (
-                            <tr key={i} className="border-b border-cream/20">
-                              <th scope="row" className="py-2.5 pr-4 text-left align-top font-normal">
-                                <Val v={r.date} onDark />
-                                {"note" in r && r.note ? <span className="block text-[14px] text-cream/80">{r.note}</span> : null}
-                              </th>
-                              <td className="whitespace-nowrap py-2.5 text-right align-top sm:text-left"><Val v={r.hours} onDark /></td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </dd>
-                  </div>
-                )}
-                {(STORE.phone || !PRESENTATION) && (
-                  <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Phone</dt>
-                    <dd className="mt-2">
-                      {STORE.phone ? <a href={CALL_HREF} className="underline decoration-cream/40 underline-offset-4 hover:decoration-cream">{STORE.phone}</a> : <Ph onDark>{"{{PHONE}}"}</Ph>}
-                    </dd>
-                  </div>
-                )}
-                {(STORE.email || !PRESENTATION) && (
-                  <div>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Email</dt>
-                    <dd className="mt-2">
-                      {STORE.email ? <a href={`mailto:${STORE.email}`} className="break-all underline decoration-cream/40 underline-offset-4 hover:decoration-cream">{STORE.email}</a> : <Ph onDark>{"{{EMAIL}}"}</Ph>}
-                    </dd>
-                  </div>
-                )}
-              </dl>
-
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={`${btnBase} bg-brand-red-deep text-white hover:bg-[#b0131a] focus-visible:outline-cream`}>
                   <PinIcon /> Get directions
                 </a>
@@ -314,39 +249,83 @@ export default function Home() {
                   </a>
                 )}
               </div>
-            </FadeIn>
-
-            {/* storefront (all screens) + interior (desktop) */}
-            <div className="grid content-start gap-4 lg:col-span-6">
-              {/* storefront-4: no people, no markup. storefront-1 had a drawn circle and a person in the doorway. */}
-              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
-                <Image src="/photos/real/storefront-4.jpg" alt="The Taste of Europe storefront, with its red and white sign above the door" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
-              </div>
-              <div className="relative hidden aspect-[16/10] overflow-hidden rounded-2xl lg:block">
-                <Image src="/photos/real/interior-wide-1.jpg" alt="Inside the store: a wide aisle with display tables" fill sizes="45vw" className="object-cover" />
-              </div>
+            </div>
+            {/* storefront-4: no people, no markup. storefront-1 had a drawn circle and a person in the doorway. */}
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem]">
+              <Image src="/photos/real/storefront-4.jpg" alt="The Taste of Europe storefront, with its red and white sign above the door" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
             </div>
           </div>
-        </section>
-      </main>
 
-      {/* FOOTER */}
-      <footer className="border-t border-cream/10 bg-brand-ink pb-[76px] text-cream md:pb-0">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-14 sm:px-10 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-serif text-3xl">{STORE.name} <span className="italic text-cream/85">{STORE.nameSuffix}</span></p>
-            <p data-draft className="mt-2 max-w-sm text-sm text-cream/85">{COPY.footerLine}</p>
-            <p className="mt-4 text-sm text-cream/85">{STORE.street}, {STORE.cityLine}</p>
-          </div>
-          <div className="flex flex-col gap-3 text-sm md:items-end">
-            {(STORE.instagram || !PRESENTATION) && (
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center gap-2 rounded-full border border-cream/50 px-5 transition-colors hover:bg-cream/10">
-                <InstagramIcon /> {STORE.instagram ? `Follow ${STORE.instagram}` : <>Follow us on Instagram <Ph onDark>{"{{INSTAGRAM}}"}</Ph></>}
-              </a>
+          {/* hours | holiday hours | contact */}
+          <dl className="mt-14 grid gap-10 border-t border-cream/15 pt-10 text-[16px] md:grid-cols-3 md:gap-8">
+            {(hoursReady || !PRESENTATION) && (
+              <div>
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Hours</dt>
+                <dd className="mt-3">
+                  {hoursReady ? (
+                    <table className="w-full max-w-xs">
+                      <tbody>
+                        {formatWeek(HOURS).map((r) => (
+                          <tr key={r.days}>
+                            <th scope="row" className="py-1 pr-4 text-left font-normal">{r.days}</th>
+                            <td className="whitespace-nowrap py-1 text-right md:text-left">{r.time}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <Ph onDark>{"{{HOURS}}"}</Ph>
+                  )}
+                </dd>
+              </div>
             )}
-            {/* stays in both modes: this is a mockup */}
-            <p className="text-xs text-cream/75">Concept mockup. Not the official website.</p>
-          </div>
+            {HOLIDAY_HOURS.length > 0 && (
+              <div>
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Holiday hours</dt>
+                <dd className="mt-3">
+                  <table className="w-full">
+                    <thead className="sr-only"><tr><th scope="col">Date</th><th scope="col">Hours</th></tr></thead>
+                    <tbody>
+                      {HOLIDAY_HOURS.map((r, i) => (
+                        <tr key={i} className="border-b border-cream/15 last:border-0">
+                          <th scope="row" className="py-1.5 pr-4 text-left align-top font-normal">
+                            <Val v={r.date} onDark />
+                            {"note" in r && r.note ? <span className="block text-[13px] text-cream/80">{r.note}</span> : null}
+                          </th>
+                          <td className="whitespace-nowrap py-1.5 text-right align-top"><Val v={r.hours} onDark /></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-red-light">Contact</dt>
+              <dd className="mt-3 space-y-2">
+                <p>{STORE.phone ? <a href={CALL_HREF} className="underline decoration-cream/40 underline-offset-4 hover:decoration-cream">{STORE.phone}</a> : <Ph onDark>{"{{PHONE}}"}</Ph>}</p>
+                <p>{STORE.email ? <a href={`mailto:${STORE.email}`} className="break-all underline decoration-cream/40 underline-offset-4 hover:decoration-cream">{STORE.email}</a> : <Ph onDark>{"{{EMAIL}}"}</Ph>}</p>
+                {(STORE.instagram || !PRESENTATION) && (
+                  <p>
+                    <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline decoration-cream/40 underline-offset-4 hover:decoration-cream">
+                      <InstagramIcon size={16} /> {STORE.instagram ?? <Ph onDark>{"{{INSTAGRAM}}"}</Ph>}
+                    </a>
+                  </p>
+                )}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        {/* wordmark */}
+        <p aria-hidden className="mx-auto mt-16 max-w-6xl select-none overflow-hidden whitespace-nowrap px-6 pb-[0.14em] font-serif text-[12.5vw] font-medium leading-[0.85] tracking-[-0.02em] text-cream/90 sm:px-10 lg:text-[10.5rem]">
+          {STORE.name}
+        </p>
+
+        <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-2 border-t border-cream/15 px-6 py-6 text-[13px] text-cream/75 sm:flex-row sm:justify-between sm:px-10">
+          <p>© 2026 {STORE.name} {STORE.nameSuffix}</p>
+          {/* stays in both modes: this is a mockup */}
+          <p>Concept mockup. Not the official website.</p>
         </div>
       </footer>
     </>

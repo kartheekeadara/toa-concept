@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { PRESENTATION } from "@/lib/flags";
 
-const serif = Cormorant_Garamond({
+// Fraunces: warm, slightly soft old-style serif (variable, with optical sizing and a SOFT axis).
+const serif = Fraunces({
   subsets: ["latin"],
-  weight: ["500", "600"],
   style: ["normal", "italic"],
+  axes: ["SOFT", "opsz"],
   variable: "--font-serif",
 });
 

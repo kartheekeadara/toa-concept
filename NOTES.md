@@ -160,6 +160,7 @@ CHOPT) and were translated to the web.
   - A holiday-hours box where a newsletter box usually sits.
   - A hairline, then the copyright and disclaimer on the left and a round Instagram icon on the right.
 - Lighthouse accessibility scores 100 for both pages on mobile, and for the homepage on desktop.
+- `/directions` now uses `public/photos/real-edited/storefront-3.webp`: a retouched high-res copy of storefront-3 (1774×887) supplied by Kartheek. The original stays in `public/photos/real/`. The "Look for the red sign" caption was removed.
 
 ## Photos (Part 1, v1 only)
 All from Unsplash, free under the [Unsplash License](https://unsplash.com/license)

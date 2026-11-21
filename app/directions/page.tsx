@@ -62,21 +62,19 @@ export default function DirectionsPage() {
             </div>
           </div>
 
-          {/* storefront-3: the clearest, widest shot of the building, no people */}
-          <figure className="mt-10 lg:col-span-7 lg:mt-0">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-cream-deep sm:aspect-[16/10]">
+          {/* storefront-3, retouched high-res copy (public/photos/real-edited/), no people */}
+          <div className="mt-10 lg:col-span-7 lg:mt-0">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-cream-deep sm:aspect-[2/1]">
               <Image
-                src="/photos/real/storefront-3.jpg"
+                src="/photos/real-edited/storefront-3.webp"
                 alt="The Taste of Europe storefront: a green building with the red Taste of Europe sign over a glass door"
                 fill
                 priority
                 sizes="(min-width: 1024px) 55vw, 100vw"
                 className="object-cover"
-                style={{ objectPosition: "50% 40%" }}
               />
             </div>
-            <figcaption className="mt-3 text-[14px] text-brand-ink-soft">Look for the red sign above the door.</figcaption>
-          </figure>
+          </div>
         </section>
 
         {/* map: bare address so Google's card doesn't show star ratings */}

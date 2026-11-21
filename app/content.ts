@@ -33,6 +33,10 @@ export const ADDRESS_QUERY = encodeURIComponent(
   "Taste of Europe Gourmet Foods, 11926 Providence Rd W, Charlotte, NC 28277"
 );
 export const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${ADDRESS_QUERY}`;
+/** Every "Get directions" button on the site goes to this page (map + storefront); it links out to Google Maps. */
+export const DIRECTIONS_PAGE = "/directions";
+// Map embed uses the bare address (no business name) so Google's place card doesn't show star ratings on our page.
+export const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent("11926 Providence Rd W, Charlotte, NC 28277")}&z=16&output=embed`;
 const rawDigits = STORE.phone ? STORE.phone.replace(/[^\d+]/g, "") : "";
 // US 10-digit numbers get +1, e.g. (704) 555-0147 → tel:+17045550147
 const phoneDigits = /^\d{10}$/.test(rawDigits) ? `+1${rawDigits}` : rawDigits;
@@ -147,14 +151,4 @@ export const STORE_PHOTOS = [
   { photo: "/photos/real/jars-honey.jpg", alt: "Shelves of honey and preserves in jars" },
   { photo: "/photos/real/smoked-fish.jpg", alt: "A tray of herring and salmon in the cooler" },
   { photo: "/photos/real/sweets-boxes.jpg", alt: "Boxed chocolates and sweets on a wooden table" },
-];
-
-/** Footer photo strip (store photos, no people, no prices visible). */
-export const FOOTER_STRIP = [
-  { photo: "/photos/real/sushki-bakery.jpg", alt: "Bags of sushki and baked rings" },
-  { photo: "/photos/real/cakes-case.jpg", alt: "Whole cakes in a glass case" },
-  { photo: "/photos/real/jars-preserves.jpg", alt: "Jars of rose petal preserves" },
-  { photo: "/photos/real/chocolates-2.jpg", alt: "Boxes of chocolates on a wooden table" },
-  { photo: "/photos/real/dessert-case-2.jpg", alt: "Slices of cake in the dessert case" },
-  { photo: "/photos/real/sour-cabbage.jpg", alt: "A tub of sour cabbage" },
 ];

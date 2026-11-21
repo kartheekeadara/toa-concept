@@ -146,6 +146,21 @@ CHOPT) and were translated to the web.
   - A "From the shelves" photo strip that links to Instagram, and a slim charcoal bottom bar.
 - Lighthouse accessibility scores 100 on mobile (both modes) and desktop.
 
+## concept-v2, round 5 (2026-11-21): nav, footer, directions page
+- **Nav (direction A, simple and classic):** logo on the left; Holidays, Deli and Inside on the right; one red "Get directions" button. Visit was removed.
+  On mobile it's the logo plus a Menu button; the bottom bar keeps Directions and Call.
+- **`/directions`** (`app/directions/page.tsx`): every "Get directions" button on the site lands here. It has:
+  - The address and hours.
+  - An "Open in Google Maps" button (turn-by-turn) and the phone number.
+  - The storefront-3 photo: the clearest wide shot of the building, with nobody in it.
+  - A Google Maps embed of the bare address (so no star ratings show).
+- **Footer** (`components/Footer.tsx`, shared by both pages), modelled on the LIFT footer UI kit:
+  - A charcoal brand block (logo on a cream badge, one line, phone and email).
+  - Visit, Hours and Explore columns.
+  - A holiday-hours box where a newsletter box usually sits.
+  - A hairline, then the copyright and disclaimer on the left and a round Instagram icon on the right.
+- Lighthouse accessibility scores 100 for both pages on mobile, and for the homepage on desktop.
+
 ## Photos (Part 1, v1 only)
 All from Unsplash, free under the [Unsplash License](https://unsplash.com/license)
 (free for commercial use, no attribution required, credit given anyway).

@@ -4,11 +4,12 @@ import ReviewMode from "@/components/ReviewMode";
 import BoardBuilder from "@/components/BoardBuilder";
 import StickyBar from "@/components/StickyBar";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 import InsideGrid from "@/components/InsideGrid";
 import PhotoStack from "@/components/PhotoStack";
-import { Ph, Val, btnBase, h2Class, PinIcon, PhoneIcon, InstagramIcon, ArrowIcon } from "@/components/ui";
-import { PRESENTATION } from "@/lib/flags";
-import { formatWeek, hoursConfigured, DAYS } from "@/lib/hours";
+import { Val, btnBase, h2Class, PinIcon, PhoneIcon, ArrowIcon } from "@/components/ui";
+import { hoursConfigured, DAYS } from "@/lib/hours";
 import {
   STORE,
   COPY,
@@ -16,10 +17,8 @@ import {
   HOLIDAY_ITEMS,
   HOLIDAY_HOURS,
   COUNTRIES,
-  FOOTER_STRIP,
-  DIRECTIONS_URL,
+  DIRECTIONS_PAGE,
   CALL_HREF,
-  INSTAGRAM_URL,
   HOURS,
   SHOW_BUILDER,
   CATEGORIES,
@@ -61,9 +60,9 @@ export default function Home() {
               {COPY.heroTagline}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={`${btnBase} bg-brand-red-deep text-white hover:bg-[#b0131a] focus-visible:outline-brand-ink`}>
+              <Link href={DIRECTIONS_PAGE} className={`${btnBase} bg-brand-red-deep text-white hover:bg-[#b0131a] focus-visible:outline-brand-ink`}>
                 <PinIcon /> Get directions
-              </a>
+              </Link>
               <a href="#visit" className={`${btnBase} border-2 border-brand-ink/80 text-brand-ink hover:bg-brand-ink/5 focus-visible:outline-brand-ink`}>
                 See holiday hours
               </a>
@@ -195,10 +194,10 @@ export default function Home() {
                 {STORE.street}, {STORE.cityLine.replace(/ \d{5}$/, "")}.
                 {openEveryDay && " Open seven days a week."}
               </p>
-              <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="group mt-6 inline-flex items-center gap-2 rounded text-[17px] font-medium underline-offset-4 hover:underline">
+              <Link href={DIRECTIONS_PAGE} className="group mt-6 inline-flex items-center gap-2 rounded text-[17px] font-medium underline-offset-4 hover:underline">
                 Get directions
                 <span className="text-brand-red-deep transition-transform group-hover:translate-x-1 motion-reduce:transition-none"><ArrowIcon /></span>
-              </a>
+              </Link>
             </FadeIn>
           </div>
         </section>
@@ -234,120 +233,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* VISIT + FOOTER: light, so the real logo can sit in it */}
-      <footer id="visit" aria-labelledby="visit-title" className="scroll-mt-16 border-t border-brand-ink/10 bg-cream-deep">
-        <h2 id="visit-title" className="sr-only">Visit us</h2>
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 pt-16 sm:px-10 sm:pt-24 lg:grid-cols-12 lg:gap-12">
-          {/* find us */}
-          <div className="lg:col-span-5">
-            <Image src="/photos/real/logo.png" alt="Taste of Europe Gourmet Foods" width={753} height={355} className="h-auto w-[170px]" />
-            <address className="mt-8 font-serif text-[1.8rem] font-medium not-italic leading-[1.08] min-[400px]:text-[2rem] sm:text-[2.6rem] lg:text-[2.1rem] xl:text-[2.25rem]">
-              {STORE.street}
-              <br />
-              {STORE.cityLine}
-            </address>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className={`${btnBase} bg-brand-red-deep text-white hover:bg-[#b0131a] focus-visible:outline-brand-ink`}>
-                <PinIcon /> Get directions
-              </a>
-              {(STORE.phone || !PRESENTATION) && (
-                <a href={CALL_HREF} className={`${btnBase} border-2 border-brand-ink/80 hover:bg-brand-ink/5 focus-visible:outline-brand-ink`}>
-                  <PhoneIcon /> {STORE.phone ?? "Call"}
-                </a>
-              )}
-            </div>
-            <ul className="mt-8 space-y-2 text-[16px]">
-              <li>{STORE.email ? <a href={`mailto:${STORE.email}`} className="break-all underline decoration-brand-ink/30 underline-offset-4 hover:decoration-brand-ink">{STORE.email}</a> : <Ph>{"{{EMAIL}}"}</Ph>}</li>
-              {(STORE.instagram || !PRESENTATION) && (
-                <li>
-                  <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline decoration-brand-ink/30 underline-offset-4 hover:decoration-brand-ink">
-                    <InstagramIcon size={16} /> {STORE.instagram ?? <Ph>{"{{INSTAGRAM}}"}</Ph>}
-                  </a>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {/* hours, styled like the sign that hangs on a shop door */}
-          <div className="lg:col-span-4">
-            <div className="relative rounded-[1.5rem] bg-white px-6 pb-7 pt-10 shadow-[0_24px_50px_-30px_rgba(58,58,58,0.55)] ring-1 ring-brand-ink/10 sm:px-8">
-              {/* hanger */}
-              <span aria-hidden className="absolute left-1/2 top-3 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-brand-ink/25 bg-cream-deep" />
-              <h3 className="text-center font-serif text-[1.9rem] font-medium">Hours</h3>
-              {hoursReady ? (
-                <table className="mt-4 w-full text-[16px]">
-                  <tbody>
-                    {formatWeek(HOURS).map((r) => (
-                      <tr key={r.days} className="border-t border-brand-ink/10">
-                        <th scope="row" className="py-2 pr-4 text-left font-medium">{r.days}</th>
-                        <td className="whitespace-nowrap py-2 text-right">{r.time}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p className="mt-4 text-center"><Ph>{"{{HOURS}}"}</Ph></p>
-              )}
-              {HOLIDAY_HOURS.length > 0 && (
-                <>
-                  <h3 className="mt-8 text-center font-serif text-[1.35rem] font-medium">Holiday hours</h3>
-                  <table className="mt-3 w-full text-[15px]">
-                    <thead className="sr-only"><tr><th scope="col">Date</th><th scope="col">Hours</th></tr></thead>
-                    <tbody>
-                      {HOLIDAY_HOURS.map((r, i) => (
-                        <tr key={i} className="border-t border-brand-ink/10">
-                          <th scope="row" className="py-1.5 pr-4 text-left align-top font-normal">
-                            <Val v={r.date} />
-                            {"note" in r && r.note ? <span className="block text-[13px] text-brand-ink-soft">{r.note}</span> : null}
-                          </th>
-                          <td className="whitespace-nowrap py-1.5 text-right align-top"><Val v={r.hours} /></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* storefront */}
-          <div className="lg:col-span-3">
-            {/* storefront-4: no people, no markup. storefront-1 had a drawn circle and a person in the doorway. */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] lg:aspect-[3/4]">
-              <Image style={{ objectPosition: "38% 50%" }} src="/photos/real/storefront-4.jpg" alt="The Taste of Europe storefront, with its red and white sign above the door" fill sizes="(min-width: 1024px) 25vw, 100vw" className="object-cover" />
-            </div>
-            <p className="mt-3 text-[14px] text-brand-ink-soft">Look for the red sign above the door.</p>
-          </div>
-        </div>
-
-        {/* photo strip */}
-        <div className="mt-16 sm:mt-20">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:px-10">
-            <p className="font-serif text-[1.35rem] font-medium">From the shelves</p>
-            {STORE.instagram && (
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[15px] font-medium underline-offset-4 hover:underline">
-                <InstagramIcon size={16} /> Follow {STORE.instagram}
-              </a>
-            )}
-          </div>
-          <ul className="mt-5 grid grid-cols-3 gap-[3px] md:grid-cols-6">
-            {FOOTER_STRIP.map((f) => (
-              <li key={f.photo} className="relative aspect-square overflow-hidden bg-brand-ink">
-                <Image src={f.photo} alt={f.alt} fill sizes="(min-width: 768px) 17vw, 33vw" className="object-cover" />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* bottom bar */}
-        <div className="bg-brand-ink pb-[76px] text-cream md:pb-0">
-          <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-[13px] text-cream/80 sm:flex-row sm:justify-between sm:px-10">
-            <p>© 2026 {STORE.name} {STORE.nameSuffix} · {STORE.street}, {STORE.cityLine}</p>
-            {/* stays in both modes: this is a mockup */}
-            <p>Concept mockup. Not the official website.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

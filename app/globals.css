@@ -54,8 +54,44 @@ html.review [data-draft]::after {
   border-radius: 4px;
 }
 
+/* One orchestrated entrance: headline lines rise out of a mask on load. CSS-only so it can't strand text if JS is slow. */
+@keyframes hero-rise {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+@keyframes hero-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.07); }
+}
+@keyframes hero-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.hero-rise { animation: hero-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-fade { animation: hero-fade 0.8s ease-out both; }
+.hero-kenburns { animation: hero-kenburns 9s ease-out both; }
+.hero-progress { animation: hero-progress linear both; }
+
+/* Country names on the shelf strip */
+@keyframes name-in {
+  from { opacity: 0; transform: translateY(0.35em); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.name-in { animation: name-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .hero-rise,
+  .hero-fade,
+  .hero-kenburns,
+  .hero-progress,
+  .name-in {
+    animation: none;
   }
 }

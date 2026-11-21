@@ -23,7 +23,7 @@ export default function ClayHeader() {
           </span>
         </Link>
         <div className="flex items-center gap-3 sm:gap-6">
-          <StoreStatus compact className="!text-clay-muted shrink-0 !text-[14px]" />
+          <StoreStatus className="!text-clay-muted shrink-0 !text-[14px]" />
           {/* Directions + Call live in the sticky bar on mobile; the header carries them from md up. */}
           {STORE.phone ? (
             <a

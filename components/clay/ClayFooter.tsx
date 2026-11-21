@@ -3,7 +3,6 @@ import { formatWeekWithToday, hoursConfigured } from "@/lib/hours";
 import { isInSeasonWindow } from "@/lib/season";
 import { PRESENTATION } from "@/lib/flags";
 import { InstagramIcon, Val } from "@/components/ui";
-import StoreStatus from "@/components/StoreStatus";
 import { PillButton } from "./ui";
 
 const headCls = "text-[15px] font-medium text-clay-ivory";
@@ -25,8 +24,7 @@ export default function ClayFooter() {
               <br />
               Charlotte, NC 28277
             </address>
-            <p className="mt-5 text-[17px] text-clay-ivory/70">Suite E2, with parking right out front.</p>
-            <StoreStatus className="mt-2 !text-[16px] !text-clay-ivory" />
+            <p className="mt-5 text-[17px] text-clay-ivory/70">Suite E2. Parking right out front.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <PillButton href={DIRECTIONS_URL} external variant="light">
                 Get directions

@@ -1,6 +1,7 @@
 import { resolvePhoto } from "@/lib/photos";
 
-export const CLAY_HEADLINE = "A European market, right off Providence Road.";
+// "|" marks the line breaks used by the hero's line-by-line entrance.
+export const CLAY_HEADLINE = "A European market,|right off|Providence Road.";
 
 // Answers "what is this place?" for the neighbor driving past, in one line.
 export const CLAY_SUBHEAD = "Deli, sweets and pantry staples from Ukraine, Poland, Georgia and across Eastern Europe.";
@@ -9,6 +10,14 @@ export const COUNTER_HERO = {
   src: "/photos/real/sweets-display.jpg",
   alt: "European sweets and chocolates on display tables inside the store",
 };
+
+// Hero sequence: slow crossfade through the shop. First frame is the LCP image.
+export const HERO_FRAMES = [
+  { src: "/photos/real/sweets-display.jpg", alt: "European sweets and chocolates on display tables inside the store", pos: "50% 55%" },
+  { src: "/photos/real/cheese-case.jpg", alt: "Wedges of European cheese in the deli case", pos: "45% 50%" },
+  { src: "/photos/real/sweets-boxes.jpg", alt: "Boxed chocolates and wafers stacked on a wooden display", pos: "40% 60%" },
+  { src: "/photos/real/interior-3.jpg", alt: "The shop floor with display tables and wine barrels", pos: "50% 60%" },
+] as const;
 
 export const INSIDE = {
   title: "Inside the shop",
@@ -73,8 +82,7 @@ export const BRANDS = ["Milka", "Krakus", "Noyan", "Borjomi", "Toruńskie", "Ros
 export const LANGUAGES_LINE = "Ask us in Ukrainian, Russian or Polish.";
 
 export const FROM_HOME = {
-  title: "Six countries on our shelves",
-  intro: "Brands people know from home, and staff who can help in your language.",
+  lead: "On our shelves, from",
   rows: [
     { native: "Україна", english: "Ukraine", lang: "uk", items: "chocolates, sunflower halva" },
     { native: "Polska", english: "Poland", lang: "pl", items: "pierogi, wafer bars" },

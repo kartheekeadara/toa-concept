@@ -1,55 +1,108 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { BRANDS, FROM_HOME, LANGUAGES_LINE } from "@/lib/clay-content";
 
+const STEP_MS = 2800;
+
+/**
+ * One country at a time, in its own script. It cycles on its own; choosing a country pins it.
+ * Reduced motion: no cycling, the list still works.
+ */
 export default function FromHome() {
+  const rows = FROM_HOME.rows;
+  const [i, setI] = useState(0);
+  const [pinned, setPinned] = useState(false);
+  const [hovering, setHovering] = useState(false);
+
+  useEffect(() => {
+    if (pinned || hovering || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % rows.length), STEP_MS);
+    return () => window.clearInterval(id);
+  }, [pinned, hovering, rows.length]);
+
+  const row = rows[i];
   const brands = `${BRANDS.slice(0, -1).join(", ")} and ${BRANDS[BRANDS.length - 1]}`;
 
   return (
-    <section aria-labelledby="from-home-title" className="overflow-x-clip border-t border-clay-line bg-clay-paper">
-      <div className="grid gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-12 lg:gap-12 lg:px-12">
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-28">
-            <h2
-              id="from-home-title"
-              className="font-display text-[clamp(2.25rem,3.6vw,3.25rem)] font-light leading-[1.02] tracking-[-0.015em] text-clay-ink"
-            >
-              {FROM_HOME.title}
-            </h2>
-            <p className="mt-4 max-w-sm text-[17px] leading-relaxed text-clay-muted">{FROM_HOME.intro}</p>
+    <section
+      aria-labelledby="from-home-title"
+      className="overflow-x-clip border-t border-clay-line bg-clay-paper"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <div className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+        <h2 id="from-home-title" className="text-[17px] text-clay-muted">
+          {FROM_HOME.lead}
+          <span className="sr-only"> {rows.map((r) => r.english).join(", ")}</span>
+        </h2>
 
-            <div className="mt-10 border-t border-clay-line pt-6">
-              <h3 className="text-[15px] font-medium text-clay-ink">Brands you&apos;ll find</h3>
-              <p className="mt-2 max-w-sm font-display text-[24px] font-light leading-snug text-clay-ink">
-                {brands}, among many others.
-              </p>
-            </div>
+        {/* The moving part. Hidden from screen readers; the list below carries the same content. */}
+        <div
+          aria-hidden
+          className="mt-2 flex h-[clamp(5.5rem,16.5vw,14.5rem)] items-end font-display font-light leading-[1.25] tracking-[-0.03em] text-clay-dark"
+        >
+          <span
+            key={row.native}
+            lang={row.lang}
+            className="name-in block whitespace-nowrap"
+            // Long names (საქართველო) step down so every name fits one line at any width.
+            style={{ fontSize: `min(11.5rem, ${(13 * 7) / Math.max(7, [...row.native].length)}vw)` }}
+          >
+            {row.native}
+          </span>
+        </div>
+        <p aria-hidden key={`${row.native}-meta`} className="name-in mt-3 text-[17px] text-clay-muted sm:text-[19px]">
+          <span className="text-clay-ink">{row.english}.</span> {row.items[0].toUpperCase() + row.items.slice(1)}.
+        </p>
+
+        <ul className="mt-10 flex flex-wrap gap-x-1 gap-y-1 border-t border-clay-line pt-4">
+          {rows.map((r, n) => {
+            const on = n === i;
+            return (
+              <li key={r.native}>
+                <button
+                  type="button"
+                  aria-pressed={on && pinned}
+                  onClick={() => {
+                    setI(n);
+                    setPinned(true);
+                  }}
+                  onFocus={() => {
+                    setI(n);
+                    setPinned(true);
+                  }}
+                  className={`relative inline-flex min-h-11 items-center px-3 text-[15px] transition-colors first:pl-0 ${
+                    on ? "text-clay-dark" : "text-clay-muted hover:text-clay-ink"
+                  }`}
+                >
+                  {r.english}
+                  <span
+                    aria-hidden
+                    className={`absolute bottom-1 left-3 right-3 h-px origin-left bg-clay-brass transition-transform duration-500 motion-reduce:transition-none [li:first-child_&]:left-0 ${
+                      on ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
+                  <span className="sr-only">: {r.items}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-4xl">
+          <div>
+            <h3 className="text-[15px] font-medium text-clay-ink">Brands you&apos;ll recognize</h3>
+            <p className="mt-2 font-display text-[22px] font-light leading-snug text-clay-ink sm:text-[24px]">{brands}.</p>
+          </div>
+          <div>
+            <h3 className="text-[15px] font-medium text-clay-ink">In your language</h3>
             {/* TODO(owner): confirm the staff languages before launch. */}
-            <p data-draft className="mt-6 max-w-sm text-[16px] text-clay-muted">
+            <p data-draft className="mt-2 font-display text-[22px] font-light leading-snug text-clay-ink sm:text-[24px]">
               {LANGUAGES_LINE}
             </p>
           </div>
         </div>
-
-        <ul className="lg:col-span-8">
-          {FROM_HOME.rows.map((row) => (
-            <li
-              key={row.native}
-              className="flex flex-col gap-1 border-b border-clay-line py-5 first:border-t sm:flex-row sm:items-baseline sm:justify-between sm:gap-8 sm:py-6"
-            >
-              <p
-                lang={row.lang}
-                className="min-w-0 break-words font-display text-[clamp(2.25rem,5.6vw,4.75rem)] font-light leading-[1.02] tracking-[-0.02em] text-clay-dark"
-              >
-                {row.native}
-              </p>
-              <p className="shrink-0 text-[15px] text-clay-muted sm:max-w-[16rem] sm:text-right">
-                <span className="text-clay-ink">{row.english}</span>
-                <span className="block" data-draft>
-                  {row.items}
-                </span>
-              </p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

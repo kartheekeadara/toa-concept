@@ -49,10 +49,7 @@ export default function StoreStatus({ className = "", compact = false }: { class
           <span className="hidden sm:inline">{text}</span>
         </>
       ) : (
-        <>
-          <span className="sr-only">{short}</span>
-          {text}
-        </>
+        text
       )}
     </span>
   );

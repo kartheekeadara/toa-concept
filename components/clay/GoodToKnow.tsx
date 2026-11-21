@@ -15,6 +15,7 @@ export default function GoodToKnow() {
     <section aria-labelledby="faq-title" className="border-t border-clay-line bg-clay-paper">
       <div className="grid gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-12">
         <figure className="lg:col-span-7">
+
           <div className="relative aspect-[3/2] overflow-hidden bg-clay-line">
             <Image
               src={HERO_PHOTO}
@@ -24,7 +25,6 @@ export default function GoodToKnow() {
               sizes="(min-width: 1024px) 58vw, 100vw"
             />
           </div>
-          <figcaption className="mt-3 text-[14px] text-clay-muted">Suite E2, with parking right out front.</figcaption>
         </figure>
 
         <div className="lg:col-span-5">

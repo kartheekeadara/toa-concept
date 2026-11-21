@@ -55,11 +55,17 @@ export function ArrowLink({
   children: ReactNode;
   className?: string;
 }) {
+  const cls = `mt-4 inline-flex min-h-11 items-center text-[15px] underline decoration-clay-brass decoration-1 underline-offset-[6px] hover:decoration-2 ${className}`;
+  // Internal pages go through Link so the GitHub Pages base path is applied.
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={cls}>
+        {children}
+      </Link>
+    );
+  }
   return (
-    <a
-      href={href}
-      className={`mt-4 inline-flex min-h-11 items-center text-[15px] underline decoration-clay-brass decoration-1 underline-offset-[6px] hover:decoration-2 ${className}`}
-    >
+    <a href={href} className={cls}>
       {children}
     </a>
   );

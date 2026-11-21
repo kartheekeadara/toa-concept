@@ -1,0 +1,50 @@
+# Auto-deploy alternative to `npm run deploy:pages`. To use it: run `gh auth refresh -s workflow`,
+# move this file to .github/workflows/pages.yml, and set Pages source to "GitHub Actions".
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [concept-v2]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Static export
+        run: npx next build
+        env:
+          GITHUB_PAGES: "true"
+          BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_DIST_DIR: out
+          NEXT_TELEMETRY_DISABLED: "1"
+      - run: touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

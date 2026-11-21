@@ -10,7 +10,8 @@
     "check:images": "node scripts/check-images.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy:pages": "bash scripts/deploy-pages.sh"
   },
   "dependencies": {
     "framer-motion": "^14.14.0",

@@ -11,7 +11,7 @@ export default function StoreSchema() {
     "@context": "https://schema.org",
     "@type": "GroceryStore",
     name: `${STORE.name} ${STORE.nameSuffix}`,
-    image: "/photos/real-edited/storefront-2-crop.jpg",
+    image: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/photos/real-edited/storefront-2-crop.jpg`,
     telephone: STORE.phone ?? undefined,
     address: {
       "@type": "PostalAddress",

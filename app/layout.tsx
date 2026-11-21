@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Taste of Europe Gourmet Foods",
     description: "European grocery and deli on Providence Rd, Charlotte.",
-    images: [{ url: "/photos/real-edited/storefront-2-crop.jpg", width: 1260, height: 1100 }],
+    images: [{ url: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/photos/real-edited/storefront-2-crop.jpg`, width: 1260, height: 1100 }],
     type: "website",
   },
 };

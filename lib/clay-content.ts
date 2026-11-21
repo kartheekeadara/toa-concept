@@ -75,12 +75,6 @@ export const SEASON_PHOTOS = [
   { src: "/photos/real-edited/sweets-table-crop.jpg", alt: "Gift boxes and sweets arranged on a display table", caption: "Gift boxes" },
 ] as const;
 
-// Brands visible on the shelves in the store's own photos.
-export const BRANDS = ["Milka", "Krakus", "Noyan", "Borjomi", "Toruńskie", "Roshen"] as const;
-
-// TODO(owner): confirm which languages staff actually speak before this goes live.
-export const LANGUAGES_LINE = "Ask us in Ukrainian, Russian or Polish.";
-
 export const FROM_HOME = {
   lead: "On our shelves, from",
   rows: [

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BRANDS, FROM_HOME, LANGUAGES_LINE } from "@/lib/clay-content";
+import { FROM_HOME } from "@/lib/clay-content";
 
 const STEP_MS = 2800;
 
@@ -22,7 +22,6 @@ export default function FromHome() {
   }, [pinned, hovering, rows.length]);
 
   const row = rows[i];
-  const brands = `${BRANDS.slice(0, -1).join(", ")} and ${BRANDS[BRANDS.length - 1]}`;
 
   return (
     <section
@@ -89,20 +88,6 @@ export default function FromHome() {
             );
           })}
         </ul>
-
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-4xl">
-          <div>
-            <h3 className="text-[15px] font-medium text-clay-ink">Brands you&apos;ll recognize</h3>
-            <p className="mt-2 font-display text-[22px] font-light leading-snug text-clay-ink sm:text-[24px]">{brands}.</p>
-          </div>
-          <div>
-            <h3 className="text-[15px] font-medium text-clay-ink">In your language</h3>
-            {/* TODO(owner): confirm the staff languages before launch. */}
-            <p data-draft className="mt-2 font-display text-[22px] font-light leading-snug text-clay-ink sm:text-[24px]">
-              {LANGUAGES_LINE}
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

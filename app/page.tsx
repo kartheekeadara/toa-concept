@@ -1,23 +1,34 @@
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import StickyBar from "@/components/StickyBar";
-import Hero from "@/components/Hero";
-import Carry from "@/components/Carry";
-import VisitSection from "@/components/VisitSection";
 import ReviewMode from "@/components/ReviewMode";
+import ClayHeader from "@/components/clay/ClayHeader";
+import ClayFooter from "@/components/clay/ClayFooter";
+import ClayStickyBar from "@/components/clay/ClayStickyBar";
+import CounterPanels from "@/components/clay/CounterPanels";
+import FromHome from "@/components/clay/FromHome";
+import GoodToKnow from "@/components/clay/GoodToKnow";
+import HeroCounter from "@/components/clay/HeroCounter";
+import SeasonSection from "@/components/clay/SeasonSection";
+import ShopSection from "@/components/clay/ShopSection";
+import Statement from "@/components/clay/Statement";
+import SmoothScroll from "@/components/clay/SmoothScroll";
 
 export default function Home() {
   return (
     <>
       <ReviewMode />
-      <Nav />
-      <main id="top">
-        <StickyBar />
-        <Hero />
-        <Carry />
-        <VisitSection />
-      </main>
-      <Footer />
+      <SmoothScroll>
+        <ClayHeader />
+        <main id="top">
+          <HeroCounter />
+          <Statement />
+          <CounterPanels />
+          <SeasonSection />
+          <FromHome />
+          <ShopSection />
+          <GoodToKnow />
+        </main>
+        <ClayFooter />
+        <ClayStickyBar />
+      </SmoothScroll>
     </>
   );
 }

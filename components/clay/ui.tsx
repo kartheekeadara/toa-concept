@@ -30,9 +30,17 @@ export function PillButton({
   );
 }
 
-export function ArrowLink({ href, children }: { href: string; children: ReactNode }) {
+export function ArrowLink({
+  href,
+  children,
+  className = "text-clay-ink",
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <Link href={href} className="group inline-flex items-center gap-2 text-[15px] text-clay-ink underline-offset-4 hover:underline">
+    <Link href={href} className={`group mt-6 inline-flex items-center gap-2 text-[15px] underline-offset-4 hover:underline ${className}`}>
       {children}
       <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
         →

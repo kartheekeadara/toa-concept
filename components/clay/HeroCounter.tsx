@@ -1,15 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { DIRECTIONS_URL, STORE } from "@/app/content";
-import { CLAY_HEADLINE, COUNTER_HERO } from "@/lib/concept-content";
+import { CLAY_HEADLINE, COUNTER_HERO } from "@/lib/clay-content";
 import StoreStatus from "@/components/StoreStatus";
-import { ConceptTag, PillButton, Reveal } from "./ui";
+import { ConceptTag, Reveal } from "./ui";
 
 export default function HeroCounter() {
   return (
-    <section className="relative min-h-[100svh] bg-clay-dark">
-      <ConceptTag />
+    <section aria-labelledby="hero-title" className="relative min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] bg-clay-dark">
+      {COUNTER_HERO.concept ? <ConceptTag /> : null}
       <Image
         src={COUNTER_HERO.src}
         alt={COUNTER_HERO.alt}
@@ -18,28 +17,15 @@ export default function HeroCounter() {
         sizes="100vw"
         priority
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-clay-dark/55 via-clay-dark/25 to-clay-dark/60" />
-      <div className="relative flex min-h-[100svh] flex-col justify-between px-5 py-8 sm:px-8 sm:py-10">
-        <Reveal className="max-w-4xl pt-6 sm:pt-10">
-          <h1
-            data-draft
-            className="font-display text-hero-clay text-clay-paper drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]"
-          >
+      <div className="absolute inset-0 bg-gradient-to-t from-clay-dark/75 via-clay-dark/20 to-clay-dark/10" />
+      <div className="relative flex min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] flex-col justify-end px-5 pb-24 pt-8 sm:px-8 sm:pb-14">
+        <Reveal className="max-w-5xl">
+          <p className="mb-5 text-[14px]">
+            <StoreStatus className="!text-clay-paper/80 text-[14px]" />
+          </p>
+          <h1 id="hero-title" data-draft className="font-display text-hero-clay text-clay-paper">
             {CLAY_HEADLINE}
           </h1>
-        </Reveal>
-        <Reveal className="mb-20 w-full max-w-sm rounded-2xl border border-clay-paper/15 bg-clay-paper/92 p-5 shadow-xl backdrop-blur-sm sm:mb-24 sm:ml-auto sm:p-6">
-          <p className="mb-3 text-[13px] text-clay-muted">
-            <StoreStatus className="!text-clay-muted text-[13px]" />
-          </p>
-          <p className="mb-4 text-[15px] leading-snug text-clay-ink">
-            {STORE.street}
-            <br />
-            {STORE.cityLine}
-          </p>
-          <PillButton href={DIRECTIONS_URL} external>
-            Directions
-          </PillButton>
         </Reveal>
       </div>
     </section>

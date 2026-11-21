@@ -348,6 +348,6 @@ User direction: modern, sleek, minimal — **not** the Market Hall colour-field 
 
 **Contrast:** Clay pairs added to `scripts/contrast.mjs` — all PASS.
 
-**Screenshots:** `screenshots/concept-{a,b,c}-{390,1440}.png` (review dev on 3100). **Pick A, B, or C before building the rest of the page.**
+**Screenshots:** `screenshots/concept-{a,b,c}-{390,1440}.png` (review dev on 3100). **Pick: B · Counter** (Nov 2026). Homepage `/` rebuilt with full Clay sections; concept routes removed.
 
 **Headline (draft):** “A European market, right off Providence Road.” Alternates in plan if needed at review.

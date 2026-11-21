@@ -1,4 +1,4 @@
-import { CLAY_STATEMENT } from "@/lib/concept-content";
+import { CLAY_STATEMENT } from "@/lib/clay-content";
 import { Reveal } from "./ui";
 
 export default function Statement() {

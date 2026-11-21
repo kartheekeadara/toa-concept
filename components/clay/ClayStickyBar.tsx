@@ -13,7 +13,7 @@ export default function ClayStickyBar() {
           href={DIRECTIONS_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-14 items-center justify-center bg-clay-dark text-[14px] font-medium text-clay-paper"
+          className="flex min-h-14 items-center justify-center bg-brand-red-deep text-[14px] font-medium text-white"
         >
           Directions
         </a>

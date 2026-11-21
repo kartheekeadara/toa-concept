@@ -101,8 +101,7 @@ export const COPY = {
   builderTitle: "Build a party platter",
 };
 
-export const HERO_PHOTO = resolvePhoto("/photos/real/storefront-3.jpg");
-export const HERO_PHOTO_ALT =
-  "The Taste of Europe storefront: green building with the red Taste of Europe sign over a glass door";
+export const HERO_PHOTO = "/photos/real-edited/storefront-2-crop.jpg";
+export const HERO_PHOTO_ALT = "Taste of Europe storefront on Providence Road";
 
 export const VISIT_PHOTO = HERO_PHOTO;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FAQ } from "@/lib/clay-content";
 import { PRESENTATION, isPlaceholder } from "@/lib/flags";
 import { Ph } from "@/components/ui";
-import { Reveal } from "./ui";
+import { Reveal, eyebrowClass } from "./ui";
 
 export default function GoodToKnow() {
   const items = FAQ.filter((item) => !(PRESENTATION && isPlaceholder(item.a)));
@@ -16,7 +16,7 @@ export default function GoodToKnow() {
     <section aria-labelledby="faq-title" className="border-t border-clay-line bg-clay-paper">
       <div className="px-5 py-14 sm:px-8 sm:py-16">
         <Reveal>
-          <h2 id="faq-title" className="text-[13px] font-medium uppercase tracking-[0.14em] text-clay-muted">
+          <h2 id="faq-title" className={eyebrowClass}>
             Good to know
           </h2>
         </Reveal>

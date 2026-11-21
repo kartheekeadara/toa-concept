@@ -38,6 +38,13 @@ async function open(w, h, mobile) {
   const ok = res && (res.status() === 200 || res.status() === 304);
   if (!ok) throw new Error(`${url} returned ${res?.status() ?? "no response"}`);
   await assertHomeOk(page);
+  const overflow = await page.evaluate(() => {
+    const el = document.documentElement;
+    return { scrollWidth: el.scrollWidth, clientWidth: el.clientWidth };
+  });
+  if (overflow.scrollWidth > overflow.clientWidth) {
+    throw new Error(`Horizontal overflow at ${w}px: scrollWidth ${overflow.scrollWidth} > clientWidth ${overflow.clientWidth}`);
+  }
   const total = await page.evaluate(() => document.body.scrollHeight);
   for (let y = 0; y < total; y += h / 2) {
     await page.evaluate((y) => window.scrollTo(0, y), y);
@@ -77,4 +84,11 @@ await p.close();
 
 p = await open(1440, 900, false);
 await fullPage(p, 1440, out("home-1440"));
+await p.close();
+
+p = await open(1440, 800, false);
+await p.screenshot({ path: out("home-1440-800"), fullPage: false });
+console.log("saved", out("home-1440-800"));
+await p.close();
+
 await browser.close();

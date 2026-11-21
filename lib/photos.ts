@@ -1,5 +1,4 @@
 const EDITED_BY_BASE: Record<string, string> = {
-  "storefront-3": "/photos/real-edited/storefront-3.webp",
   "deli-case-3": "/photos/real/deli-case-3.jpg",
   "interior-wide-1": "/photos/real/interior-wide-1.jpg",
   "candy-baskets-1": "/photos/real/candy-baskets-1.jpg",

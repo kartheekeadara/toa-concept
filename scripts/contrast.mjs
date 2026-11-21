@@ -18,6 +18,8 @@ pairs=[
   ("Clay muted on paper", h("#6B645C"), h("#FAF7F2"), False),
   ("Clay paper on dark (pill btn)", h("#FAF7F2"), h("#141210"), False),
   ("Clay paper on dark gradient", h("#FAF7F2"), h("#141210"), True),
+  ("Brand red-deep on clay paper (eyebrow)", h("#C8161D"), h("#FAF7F2"), False),
+  ("Brand red-deep on clay section", h("#C8161D"), h("#F0EBE3"), False),
 ]
 for name,fg,bg,large in pairs:
     r=ratio(fg,bg); need=3.0 if large else 4.5

@@ -351,3 +351,11 @@ User direction: modern, sleek, minimal — **not** the Market Hall colour-field 
 **Screenshots:** `screenshots/concept-{a,b,c}-{390,1440}.png` (review dev on 3100). **Pick: B · Counter** (Nov 2026). Homepage `/` rebuilt with full Clay sections; concept routes removed.
 
 **Headline (draft):** “A European market, right off Providence Road.” Alternates in plan if needed at review.
+
+## Round 8 follow-up: real photos + UX (Nov 2026)
+
+**Imagery:** All generated `public/photos/concept/` removed. Hero `sweets-display.jpg`; shop `real-edited/storefront-2-crop.jpg` (grey building); season trio + `sweets-table-crop.jpg`.
+
+**UX:** Logo in nav; red accent on eyebrows, arrow links, and Directions CTAs; compact open/closed on phone; hero “Get directions”; country example items; footer logo column (no “Come by.”); `shoot.mjs` horizontal-scroll guard.
+
+**Screenshots:** `home-*-review.png`, `home-1440-800-review.png`, `mobile-first-screen-review.png`.

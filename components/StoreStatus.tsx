@@ -5,7 +5,7 @@ import { HOURS } from "@/app/content";
 import { getOpenStatus } from "@/lib/hours";
 import { Ph } from "./ui";
 
-export default function StoreStatus({ className = "" }: { className?: string }) {
+export default function StoreStatus({ className = "", compact = false }: { className?: string; compact?: boolean }) {
   const [status, setStatus] = useState(() => getOpenStatus(HOURS));
 
   useEffect(() => {
@@ -30,15 +30,25 @@ export default function StoreStatus({ className = "" }: { className?: string }) 
       : status.opensAt
         ? `Closed · opens ${status.opensDay ? `${status.opensDay} ` : ""}${status.opensAt}`
         : "Closed";
+  const short = open ? "Open" : "Closed";
 
   return (
     <span className={`inline-flex items-center gap-2 text-[14px] text-ink-muted ${className}`}>
       <span
-        className={`inline-block h-2 w-2 rounded-full ${open ? "bg-emerald-600" : "bg-ink-muted"}`}
+        className={`inline-block h-2 w-2 shrink-0 rounded-full ${open ? "bg-emerald-600" : "bg-ink-muted"}`}
         aria-hidden
       />
-      <span className="sr-only">{open ? "Open" : "Closed"}</span>
-      {text}
+      {compact ? (
+        <>
+          <span className="sm:hidden">{short}</span>
+          <span className="hidden sm:inline">{text}</span>
+        </>
+      ) : (
+        <>
+          <span className="sr-only">{short}</span>
+          {text}
+        </>
+      )}
     </span>
   );
 }

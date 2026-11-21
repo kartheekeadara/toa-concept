@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { FROM_HOME } from "@/lib/clay-content";
-import { MediaPanel, Reveal } from "./ui";
+import { MediaPanel, Reveal, eyebrowClass } from "./ui";
 
 export default function FromHome() {
   return (
-    <section aria-labelledby="from-home-title" className="bg-clay-section">
+    <section aria-labelledby="from-home-title" className="overflow-x-clip bg-clay-section">
       <div className="px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
         <Reveal>
-          <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-clay-muted">{FROM_HOME.eyebrow}</p>
+          <p className={eyebrowClass}>{FROM_HOME.eyebrow}</p>
           <h2
             id="from-home-title"
             data-draft
@@ -29,20 +29,27 @@ export default function FromHome() {
             </div>
           </div>
 
-          <ol className="border-t border-clay-ink/15 lg:col-span-7">
+          <ol className="min-w-0 border-t border-clay-ink/15 lg:col-span-7">
             {FROM_HOME.rows.map((row, i) => (
-              <li key={row.native} className="group border-b border-clay-ink/15">
-                <Reveal className="flex items-baseline gap-4 py-6 sm:gap-8 sm:py-8">
+              <li key={row.native} className="border-b border-clay-ink/15">
+                <Reveal className="flex gap-4 py-6 sm:gap-8 sm:py-8">
                   <span className="w-6 shrink-0 font-mono text-[12px] tabular-nums text-clay-muted">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span
-                    lang={row.lang}
-                    className="flex-1 font-display text-[clamp(2rem,5vw,4rem)] font-medium leading-none tracking-[-0.03em] text-clay-ink transition-transform duration-500 ease-out group-hover:translate-x-2"
-                  >
-                    {row.native}
+                  <div className="min-w-0 flex-1">
+                    <p
+                      lang={row.lang}
+                      className="font-display text-[clamp(1.75rem,5vw,3.5rem)] font-medium leading-none tracking-[-0.03em] text-clay-ink"
+                    >
+                      {row.native}
+                    </p>
+                    <p data-draft className="mt-2 text-[14px] text-clay-muted">
+                      {row.items}
+                    </p>
+                  </div>
+                  <span className="hidden shrink-0 self-start pt-1 text-right text-[14px] text-clay-muted sm:block sm:text-[15px]">
+                    {row.english}
                   </span>
-                  <span className="shrink-0 text-right text-[14px] text-clay-muted sm:text-[15px]">{row.english}</span>
                 </Reveal>
               </li>
             ))}

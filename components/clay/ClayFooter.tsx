@@ -1,60 +1,52 @@
 import Image from "next/image";
 import { CALL_HREF, DIRECTIONS_URL, HOLIDAY_HOURS, HOURS, INSTAGRAM_URL, STORE } from "@/app/content";
-import { formatWeekWithToday, hoursConfigured, todayHoursLabel } from "@/lib/hours";
+import { formatWeekWithToday, hoursConfigured } from "@/lib/hours";
 import { isInSeasonWindow } from "@/lib/season";
 import { PRESENTATION } from "@/lib/flags";
-import { FOOTER_CLOSER } from "@/lib/clay-content";
-import StoreStatus from "@/components/StoreStatus";
 import { InstagramIcon, Val } from "@/components/ui";
-import { PillButton, Reveal } from "./ui";
-
-const label = "text-[12px] font-medium uppercase tracking-[0.14em] text-clay-muted";
+import { PillButton, eyebrowClass } from "./ui";
 
 export default function ClayFooter() {
   const ready = hoursConfigured(HOURS);
-  const today = todayHoursLabel(HOURS);
   const season = isInSeasonWindow();
 
   return (
-    <footer id="visit" aria-labelledby="visit-title" className="scroll-mt-16 bg-clay-section pb-20 text-clay-ink md:pb-0">
-      <div className="px-5 pt-16 sm:px-8 sm:pt-24 lg:pt-28">
-        <Reveal>
-          <h2
-            id="visit-title"
-            data-draft
-            className="font-display text-[clamp(4.5rem,19vw,17rem)] font-medium leading-[0.85] tracking-[-0.055em]"
-          >
-            {FOOTER_CLOSER}
-          </h2>
-        </Reveal>
-
-        <div className="mt-14 grid gap-10 border-t border-clay-ink/15 pt-10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-8">
+    <footer id="visit" aria-labelledby="visit-title" className="scroll-mt-16 bg-clay-section pb-20 text-clay-ink md:pb-8">
+      <h2 id="visit-title" className="sr-only">
+        Visit
+      </h2>
+      <div className="px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
-            <h3 className={label}>Today</h3>
-            <p className="mt-4 text-[22px] font-medium leading-tight tracking-[-0.01em]">
-              {today ?? <Val v="{{HOURS}}" />}
-            </p>
-            <p className="mt-2">
-              <StoreStatus className="!text-clay-muted text-[14px]" />
+            <Image
+              src="/photos/real/logo.png"
+              alt="Taste of Europe Gourmet Foods"
+              width={753}
+              height={355}
+              className="h-auto w-[140px]"
+            />
+            <p className="mt-6 text-[13px] leading-relaxed text-clay-muted">
+              © 2026 {STORE.name} {STORE.nameSuffix}
+              {!PRESENTATION ? <span> · Concept mockup, not the official website</span> : null}
             </p>
           </div>
 
           <div>
-            <h3 className={label}>Find us</h3>
+            <h3 className={eyebrowClass}>Find us</h3>
             <address className="mt-4 text-[17px] not-italic leading-relaxed">
               {STORE.street}
               <br />
               {STORE.cityLine}
             </address>
             <div className="mt-5">
-              <PillButton href={DIRECTIONS_URL} external>
+              <PillButton href={DIRECTIONS_URL} external variant="primary">
                 Directions
               </PillButton>
             </div>
           </div>
 
           <div>
-            <h3 className={label}>Hours</h3>
+            <h3 className={eyebrowClass}>Hours</h3>
             {ready ? (
               <table className="mt-4 w-full max-w-xs text-left text-[15px]">
                 <caption className="sr-only">Opening hours</caption>
@@ -76,7 +68,7 @@ export default function ClayFooter() {
             )}
             {season && HOLIDAY_HOURS.length > 0 ? (
               <div id="holiday-hours" className="mt-8 scroll-mt-24">
-                <h3 className={label}>Holiday hours</h3>
+                <h3 className={eyebrowClass}>Holiday hours</h3>
                 <table className="mt-3 w-full max-w-xs text-left text-[14px]">
                   <tbody>
                     {HOLIDAY_HOURS.map((r, i) => (
@@ -97,7 +89,7 @@ export default function ClayFooter() {
           </div>
 
           <div>
-            <h3 className={label}>Say hello</h3>
+            <h3 className={eyebrowClass}>Say hello</h3>
             <ul className="mt-4 space-y-3 text-[17px]">
               {STORE.phone ? (
                 <li>
@@ -121,14 +113,6 @@ export default function ClayFooter() {
               ) : null}
             </ul>
           </div>
-        </div>
-
-        <div className="mt-16 flex flex-col gap-6 border-t border-clay-ink/15 py-8 sm:flex-row sm:items-center sm:justify-between lg:mt-24">
-          <Image src="/photos/real/logo.png" alt="Taste of Europe Gourmet Foods" width={753} height={355} className="h-12 w-auto sm:h-14" />
-          <p className="text-[13px] text-clay-muted">
-            © 2026 {STORE.name} {STORE.nameSuffix}
-            {!PRESENTATION ? <span> · Concept mockup, not the official website</span> : null}
-          </p>
         </div>
       </div>
     </footer>

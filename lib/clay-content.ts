@@ -6,9 +6,8 @@ export const CLAY_STATEMENT =
   "Cheese cut to order at the counter. Kielbasa sliced while you wait. Candy by the pound, jars from home, and a wine wall you can browse before you check out. Walk in hungry — leave with a full bag.";
 
 export const COUNTER_HERO = {
-  src: "/photos/concept/deli-counter.jpg",
-  alt: "European deli counter with cheese and sausage, warm directional light",
-  concept: true,
+  src: "/photos/real/sweets-display.jpg",
+  alt: "European sweets and chocolates on display tables inside the store",
 };
 
 export type CounterPanel = {
@@ -16,7 +15,6 @@ export type CounterPanel = {
   line: string;
   image: string;
   backdrop: string;
-  concept?: boolean;
 };
 
 export const COUNTERS: CounterPanel[] = [
@@ -29,16 +27,14 @@ export const COUNTERS: CounterPanel[] = [
   {
     name: "Sweets by the pound",
     line: "Wrapped candies, chocolate bars and boxed sweets you scoop yourself.",
-    image: "/photos/concept/candy.jpg",
+    image: resolvePhoto("/photos/real/candy-baskets-1.jpg"),
     backdrop: "#E5D9CE",
-    concept: true,
   },
   {
     name: "Pantry & preserves",
     line: "Pickles, jarred vegetables, honey and spreads from home.",
-    image: "/photos/concept/preserves.jpg",
+    image: "/photos/real/jars-preserves.jpg",
     backdrop: "#DDD6C9",
-    concept: true,
   },
   {
     name: "Wine & drinks",
@@ -51,29 +47,31 @@ export const COUNTERS: CounterPanel[] = [
 export const SEASON_COPY = {
   title: "The season",
   line: "Gingerbread, boxed chocolates and a few things we only stack this time of year.",
-  cta: "Holiday hours",
+  highlights: ["Dec 24 · 10–3", "Jan 6, Orthodox Christmas Eve · 10–3"],
+  cta: "See all holiday hours",
 };
+
+export const SEASON_PHOTOS = [
+  { src: "/photos/real/gingerbread.jpg", alt: "Gingerbread and holiday sweets on display" },
+  { src: "/photos/real/chocolates-basket.jpg", alt: "Basket of boxed chocolates" },
+  { src: "/photos/real-edited/sweets-table-crop.jpg", alt: "Gift boxes and sweets on a display table" },
+] as const;
 
 export const FROM_HOME = {
   eyebrow: "From home",
-  title: "The food you grew up with, a short drive away.",
-  line: "For people who miss it, and for neighbours curious about what’s in the jar.",
+  title: "Find the food you miss.",
+  line: "For people who miss it, and for neighbors curious about what's in the jar.",
   image: resolvePhoto("/photos/real/pantry-aisle.jpg"),
   imageAlt: "An aisle of jars and packaged goods inside the store",
   rows: [
-    { native: "Україна", english: "Ukraine", lang: "uk" },
-    { native: "Polska", english: "Poland", lang: "pl" },
-    { native: "საქართველო", english: "Georgia", lang: "ka" },
-    { native: "Lietuva", english: "Lithuania", lang: "lt" },
-    { native: "България", english: "Bulgaria", lang: "bg" },
-    { native: "Moldova", english: "Moldova", lang: "ro" },
+    { native: "Україна", english: "Ukraine", lang: "uk", items: "chocolates, sunflower halva" },
+    { native: "Polska", english: "Poland", lang: "pl", items: "pierogi, wafer bars" },
+    { native: "საქართველო", english: "Georgia", lang: "ka", items: "Borjomi, churchkhela" },
+    { native: "Lietuva", english: "Lithuania", lang: "lt", items: "dark rye bread, farmer's cheese" },
+    { native: "България", english: "Bulgaria", lang: "bg", items: "white cheese, lyutenitsa" },
+    { native: "Moldova", english: "Moldova", lang: "ro", items: "wine, preserves" },
   ],
 } as const;
-
-export const SHOP_COPY = {
-  line1: "Green storefront on Providence Road — you will see the red sign before you pull in.",
-  line2: "Walk the aisles, talk to the counter, leave with bags you did not plan on filling.",
-};
 
 export const FAQ = [
   {
@@ -92,5 +90,3 @@ export const FAQ = [
     placeholder: true,
   },
 ] as const;
-
-export const FOOTER_CLOSER = "Come by.";

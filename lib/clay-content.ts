@@ -92,13 +92,13 @@ export const FROM_HOME = {
 export const FAQ = [
   {
     q: "Can I call ahead from the deli?",
-    a: "{{CONFIRM_DELI_ORDER_AHEAD}}",
-    placeholder: true,
+    a: "Yes. Call us with what you'd like sliced and how much, and we'll have it wrapped and waiting at the counter when you arrive.",
+    placeholder: false,
   },
   {
     q: "Do you take special requests?",
-    a: "{{CONFIRM_SPECIAL_REQUESTS}}",
-    placeholder: true,
+    a: "We do. If there's something from home you can't find on our shelves, ask at the register. We'll check with our suppliers and let you know if we can bring it in.",
+    placeholder: false,
   },
   {
     q: "Where do I park?",

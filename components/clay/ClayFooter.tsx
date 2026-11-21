@@ -24,7 +24,6 @@ export default function ClayFooter({ showHolidayHours = true }: { showHolidayHou
               <br />
               Charlotte, NC 28277
             </address>
-            <p className="mt-5 text-[17px] text-clay-ivory/70">Suite E2. Parking right out front.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <PillButton href={DIRECTIONS_URL} external variant="light">
                 Get directions
@@ -96,13 +95,6 @@ export default function ClayFooter({ showHolidayHours = true }: { showHolidayHou
             </p>
           </div>
           <ul className="flex flex-wrap items-center gap-x-8 text-[15px]">
-            {STORE.phone ? (
-              <li>
-                <a href={CALL_HREF} className="inline-flex min-h-11 items-center underline-offset-[6px] hover:underline">
-                  {STORE.phone}
-                </a>
-              </li>
-            ) : null}
             {STORE.instagram || !PRESENTATION ? (
               <li>
                 <a

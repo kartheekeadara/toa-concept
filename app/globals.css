@@ -67,6 +67,12 @@ html.review [data-draft]::after {
   from { transform: scale(1); }
   to { transform: scale(1.07); }
 }
+/* single hero photo: a slow settle from slightly zoomed in, once */
+@keyframes hero-settle {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+.hero-settle { animation: hero-settle 2.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
 @keyframes hero-progress {
   from { width: 0; }
   to { width: 100%; }
@@ -91,6 +97,7 @@ html.review [data-draft]::after {
   .hero-fade,
   .hero-kenburns,
   .hero-progress,
+  .hero-settle,
   .name-in {
     animation: none;
   }

@@ -1,13 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import { GIFTS_HERO } from "@/lib/holiday-content";
-import { useSeasonRows } from "./useSeasonRows";
 
 export default function GiftsHero() {
-  const rows = useSeasonRows();
-  const upcoming = rows.find((r) => r.status === "today" || r.status === "next");
-
   return (
     <section aria-labelledby="hero-title" className="bg-clay-paper">
       <div className="grid lg:min-h-[calc(100svh-4rem)] lg:grid-cols-12">
@@ -25,26 +19,6 @@ export default function GiftsHero() {
           <p data-draft className="mt-6 max-w-md text-[18px] leading-relaxed text-clay-muted">
             {GIFTS_HERO.line}
           </p>
-          <div className="mt-10 border-t border-clay-line pt-5">
-            {upcoming ? (
-              <a href="#holiday-hours" className="group block min-h-11">
-                <span className="block text-[15px] text-clay-muted">
-                  {upcoming.status === "today" ? "Today" : "Next holiday hours"}
-                </span>
-                <span className="mt-1 block font-display text-[26px] font-light leading-tight text-clay-dark">
-                  {upcoming.date}
-                  {upcoming.note ? `, ${upcoming.note}` : ""}: {upcoming.hours}
-                </span>
-                <span className="mt-2 inline-block text-[15px] text-clay-ink underline decoration-clay-brass underline-offset-[6px] group-hover:decoration-2">
-                  See all holiday hours
-                </span>
-              </a>
-            ) : (
-              <a href="#holiday-hours" className="inline-flex min-h-11 items-center text-[15px] underline decoration-clay-brass underline-offset-[6px]">
-                See holiday hours
-              </a>
-            )}
-          </div>
         </div>
       </div>
     </section>

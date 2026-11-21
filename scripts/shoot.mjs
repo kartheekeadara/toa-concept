@@ -20,11 +20,24 @@ const browser = await puppeteer.launch({
 });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
+async function assertHomeOk(page) {
+  const err = await page.$('[data-nextjs-error]');
+  const title = await page.title();
+  if (err || /Application error|Server Error/i.test(title)) {
+    throw new Error(`Page failed to render at ${url} (title: ${title})`);
+  }
+  const hero = await page.$("#hero-title");
+  if (!hero) throw new Error(`Missing #hero-title — likely not the homepage at ${url}`);
+}
+
 async function open(w, h, mobile) {
   const page = await browser.newPage();
   await page.setViewport({ width: w, height: h, deviceScaleFactor: 2, isMobile: mobile, hasTouch: mobile });
   await page.setUserAgent((await browser.userAgent()).replace("HeadlessChrome", "Chrome"));
-  await page.goto(url, { waitUntil: "networkidle0", timeout: 60000 });
+  const res = await page.goto(url, { waitUntil: "networkidle0", timeout: 60000 });
+  const ok = res && (res.status() === 200 || res.status() === 304);
+  if (!ok) throw new Error(`${url} returned ${res?.status() ?? "no response"}`);
+  await assertHomeOk(page);
   const total = await page.evaluate(() => document.body.scrollHeight);
   for (let y = 0; y < total; y += h / 2) {
     await page.evaluate((y) => window.scrollTo(0, y), y);

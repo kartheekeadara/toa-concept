@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3100",
     "present": "PRESENTATION=true next dev -H 0.0.0.0 -p 3101",
+    "present:build": "PRESENTATION=true next build",
+    "present:start": "PRESENTATION=true next start -H 0.0.0.0 -p 3101",
+    "check:images": "node scripts/check-images.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

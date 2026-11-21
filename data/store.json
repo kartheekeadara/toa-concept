@@ -5,6 +5,7 @@
   "instagram": "@tasteofeuropeclt",
   "instagramUrl": "https://www.instagram.com/tasteofeuropeclt/",
   "timezone": "America/New_York",
+  "seasonWindow": { "start": "11-15", "end": "01-07" },
   "holidayHours": [
     {
       "date": "Dec 24",

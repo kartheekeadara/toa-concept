@@ -7,67 +7,28 @@ html {
 }
 
 body {
-  background: #f6f0e4; /* cream */
-  color: #3a3a3a; /* brand-ink */
+  background: #ffffff;
+  color: #141414;
 }
 
-/* Fraunces: a touch of softness on the display serif */
-.font-serif {
-  font-variation-settings: "SOFT" 50;
-}
-
-/* Fallback focus ring for anything without its own: follows the text colour, so it shows on cream and on red/ink. */
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
+  outline: 2px solid #141414;
+  outline-offset: 2px;
 }
 
-
-/* Scroll fade-in (see components/FadeIn.tsx) */
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 900ms ease, transform 900ms ease;
-}
-.fade-in.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .fade-in {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .animate-slowzoom,
-  .animate-pop {
-    animation: none !important;
-  }
-  .motion-safe-transform {
-    transition: opacity 150ms linear !important;
-    transform: none !important;
-  }
-}
-
-/* {{PLACEHOLDER}} chips: visible on purpose so nobody mistakes them for real info */
 .placeholder {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: ui-monospace, Menlo, monospace;
   font-size: 0.85em;
-  background: rgba(200, 22, 29, 0.08);
+  background: rgba(200, 22, 29, 0.06);
   color: #b0131a;
-  border: 1px dashed rgba(200, 22, 29, 0.5);
-  border-radius: 6px;
+  border: 1px dashed rgba(200, 22, 29, 0.4);
+  border-radius: 4px;
   padding: 0.05em 0.4em;
   white-space: nowrap;
 }
 
-/* Review mode: add ?review to the URL to outline every COPY-DRAFT line */
 html.review [data-draft] {
   outline: 1px dashed #c8161d;
   outline-offset: 3px;
@@ -83,5 +44,11 @@ html.review [data-draft]::after {
   background: #c8161d;
   color: #ffffff;
   padding: 2px 4px;
-  border-radius: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

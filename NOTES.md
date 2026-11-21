@@ -284,7 +284,9 @@ Open the review server with `?review` (e.g. `http://localhost:3100/?review`) to 
 ## Running it
 ```
 npm run dev       # review mode:       next dev -H 0.0.0.0 -p 3100
-npm run present   # presentation mode: PRESENTATION=true, port 3101
+npm run present   # presentation mode: PRESENTATION=true, port 3101 (dev)
+npm run present:build && npm run present:start   # production presentation on 3101
+npm run check:images   # requires server; BASE_URL=http://localhost:3101
 ```
 Phone on the same Wi-Fi: `http://<your-mac-LAN-IP>:3101` (run `ipconfig getifaddr en0` to get it).
 
@@ -299,3 +301,41 @@ Headless Chrome can't draw Google Maps tiles, so the map is an empty box in the 
 - Google lists the address as **11926 Providence Rd W, Suite E2**. Confirm and add the suite number if it's right.
 - The map embed uses the bare address on purpose. With the business name, Google's card
   shows their star rating, and this page states no reviews.
+
+## Round 7: Quiet White (Nov 2026)
+
+User direction: modern, sleek, minimal — **not** the Market Hall colour-field look (round 6).
+
+**Design:** White `#FFFFFF`, ink `#141414`, muted `#6B6B6B`, hairline `#E8E8E8`. **Inter** (Latin + Cyrillic). Red only on logo + Directions buttons (`brand-red-deep`). Photos at 4px radius, no shadows.
+
+**Structure:** Header (logo · status dot · Directions) → Hero (one line, address + today · storefront) → What we carry (hairline list + 3 photos) → native country row → Visit (hours, holiday hours in season, deli call line, map) → one-line footer. No nav section links. Mobile white sticky bar.
+
+**Removed:** Unbounded/IBM Plex Market Hall components, colour aisles, season panel, deli band, country brand table, cutouts/loops.
+
+**QA:** `shoot.mjs` fails on non-200/304 or missing `#hero-title`. `check-images.mjs` checks `/` and `/directions`. Screenshots regenerated Nov 2026 (`home-390.png`, `*-review.png`). **Lighthouse accessibility: 100** (`reports/lighthouse-a11y.json` on 3101).
+
+**Round 6 correction:** Earlier `home-390.png` / `home-1440.png` from round 6 were bad captures (error page / empty); do not use for comparison.
+
+**Assets:** [docs/ASSET-SHOT-LIST.md](/Users/kartheekeadara/Documents/toa-concept/docs/ASSET-SHOT-LIST.md) — four retouched stills only.
+
+**Design gate:** Header + hero reviewed via `home-390-review.png` and `home-1440-review.png` before carry/visit were built.
+
+## Round 6: Market Hall redesign (Nov 2026)
+
+**Direction:** Colour-forward neighbourhood grocery — tokens from `scripts/logo-colors.py` (red, ink, logo green/yellow, storefront green). **Type:** Unbounded + IBM Plex Sans/Mono (Latin + Cyrillic). **Shape:** square corners, 1.5px rules, starburst status chip.
+
+**Structure:** Nav → Signboard hero → Season panel (`seasonWindow` in `data/store.json`) → Aisle grid → From home → Deli band → Visit → Slim footer. **`/directions`** redirects to `/#visit`. Directions buttons open Google Maps directly.
+
+**Removed:** Fraunces/Inter look, hero photo tiles, Inside grid, photo stack, five-column footer.
+
+**Assets:** `docs/ASSET-SHOT-LIST.md`, `public/photos/cutouts/`, `public/photos/loops/`. Resolver in `lib/photos.ts` (`EDITED_BY_BASE`, `CUTOUT_FILES`).
+
+**Scripts:** `present:build` / `present:start` (prod presentation on 3101), `check:images`. Image variant check passes on prod presentation and review dev (117 public files).
+
+**Screenshots (Nov 2026):** `home-390.png`, `home-1440.png`, `*-review.png` at 390 and 1440.
+
+**Contrast:** `node scripts/contrast.mjs` — token pairs; small copy on green fields uses paper chips in aisles/country rows.
+
+**Review:** `/styleguide` (review mode only). Design gate: not yet held — all sections were built in one pass; owner/Kartheek review at 390px and 1440px still pending.
+
+**Still open:** Lighthouse accessibility score not yet captured (CLI run failed). Country brand names are `CONFIRM_*` placeholders, not yet verified against store photos.

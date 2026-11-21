@@ -69,3 +69,39 @@ export function formatWeek(hours: StoreHours): { days: string; time: string }[] 
   }
   return rows.map((r) => ({ days: r.from === r.to ? SHORT[r.from] : `${SHORT[r.from]}–${SHORT[r.to]}`, time: r.time }));
 }
+
+export function formatWeekWithToday(hours: StoreHours, now: Date = new Date()) {
+  const today = todayDayKey(hours, now);
+  const order: Day[] = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+  const label = (h: DayHours) => (h ? `${fmtTime(h.open)} – ${fmtTime(h.close)}` : "Closed");
+  const rows: { from: Day; to: Day; time: string }[] = [];
+  for (const d of order) {
+    const time = label(hours.week[d]);
+    const last = rows[rows.length - 1];
+    if (last && last.time === time) last.to = d;
+    else rows.push({ from: d, to: d, time });
+  }
+  const idx = (d: Day) => order.indexOf(d);
+  return rows.map((r) => {
+    const isToday = idx(today) >= idx(r.from) && idx(today) <= idx(r.to);
+    return {
+      days: r.from === r.to ? SHORT[r.from] : `${SHORT[r.from]}–${SHORT[r.to]}`,
+      time: r.time,
+      isToday,
+    };
+  });
+}
+
+/** Current weekday key in the store timezone (for bold "today" row). */
+export function todayDayKey(hours: StoreHours, now: Date = new Date()): Day {
+  const wd = new Intl.DateTimeFormat("en-US", { timeZone: hours.timezone, weekday: "short" }).format(now).toLowerCase().slice(0, 3);
+  return wd as Day;
+}
+
+/** Today's hours line, e.g. "10:00 AM – 7:00 PM" or "Closed". */
+export function todayHoursLabel(hours: StoreHours, now: Date = new Date()): string | null {
+  if (!hoursConfigured(hours)) return null;
+  const d = todayDayKey(hours, now);
+  const h = hours.week[d];
+  return h ? `${fmtTime(h.open)} – ${fmtTime(h.close)}` : "Closed";
+}

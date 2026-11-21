@@ -102,7 +102,7 @@ export const COPY = {
   builderTitle: "Build a party platter",
 };
 
-export const HERO_PHOTO = "/photos/real-edited/storefront-2-crop.jpg";
+export const HERO_PHOTO = resolvePhoto("/photos/real/storefront-2.jpg", "/photos/real-edited/storefront-2-crop.jpg");
 export const HERO_PHOTO_ALT = "Taste of Europe storefront on Providence Road";
 
 export const VISIT_PHOTO = HERO_PHOTO;

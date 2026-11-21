@@ -21,7 +21,7 @@ export default function GoodToKnow() {
               src={HERO_PHOTO}
               alt="Taste of Europe storefront at 11926 Providence Rd W, with a red Taste of Europe Parking Only sign by the door"
               fill
-              className="object-cover object-[50%_70%]"
+              className="object-cover object-[50%_48%]"
               sizes="(min-width: 1024px) 58vw, 100vw"
             />
           </div>

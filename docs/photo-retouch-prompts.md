@@ -309,17 +309,17 @@ I'll straighten the verticals myself.
 | File | Round | Result | Live? |
 |---|---|---|---|
 | 01-sweets-display | 1 | Approved | Yes |
-| 02-cheese-case | 1 | Held: labels re-lettered | No |
+| 02-cheese-case | 2 | Round 2 approved; warmed to match | Yes |
 | 03-sweets-boxes | 1 | Approved | Yes |
 | 04-interior-3 | 1 | Approved (smear rebuilt; the area right of the pillar is reconstructed, so the owner should confirm it matches) | Yes |
 | 05-deli-case-3 | 1 | Approved | Yes |
 | 06-candy-baskets-1 | 1 | Approved | Yes |
 | 07-jars-preserves | 1 | Approved (lids came out a bit more gold) | Yes |
-| 08-wine-barrels | 1 | Held: re-staged | No |
+| 08-wine-barrels | 2 | Round 2 approved; rotated 8° and cropped locally, warmed | Yes |
 | 09-gingerbread | 1 | Approved | Yes |
 | 10-chocolates-basket | 1 | Approved | Yes |
 | 11-sweets-table | 1 | Approved (background brand names are small and soft) | Yes |
-| 12-chocolates-2 | 1 | Held: Krakus line changed | No |
-| 13-cookie-boxes | 1 | Held: labels garbled | No |
+| 12-chocolates-2 | 2 | Round 2 approved; warmed slightly | Yes |
+| 13-cookie-boxes | 2 | Round 2 approved; warmed slightly | Yes |
 | 14-wine-display | 1 | Approved | Yes |
-| 15-storefront-2 | 1 | Held: window removed | No |
+| 15-storefront-2 | 2 | Round 2 approved; light neutral brighten | Yes |

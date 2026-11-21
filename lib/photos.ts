@@ -15,7 +15,12 @@ const APPROVED_EDITS = new Set([
   "chocolates-basket",
   "sweets-table",
   "wine-display",
-  // Held for a redo: cheese-case, wine-barrels, chocolates-2, cookie-boxes, storefront-2
+  // Round 2 (straightened / colour-matched locally after cleanup)
+  "cheese-case",
+  "wine-barrels",
+  "chocolates-2",
+  "cookie-boxes",
+  "storefront-2",
 ]);
 
 function baseName(path: string): string {

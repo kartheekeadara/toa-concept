@@ -9,22 +9,22 @@
   "holidayHours": [
     {
       "date": "Dec 24",
-      "note": "",
+      "note": "Christmas Eve",
       "hours": "10:00 AM – 3:00 PM"
     },
     {
       "date": "Dec 25",
-      "note": "",
+      "note": "Christmas Day",
       "hours": "Closed"
     },
     {
       "date": "Dec 31",
-      "note": "",
+      "note": "New Year's Eve",
       "hours": "10:00 AM – 4:00 PM"
     },
     {
       "date": "Jan 1",
-      "note": "",
+      "note": "New Year's Day",
       "hours": "Closed"
     },
     {
@@ -34,7 +34,7 @@
     },
     {
       "date": "Jan 7",
-      "note": "",
+      "note": "Orthodox Christmas",
       "hours": "Closed"
     }
   ],

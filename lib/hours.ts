@@ -33,7 +33,7 @@ export function hoursConfigured(hours: StoreHours) {
 const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
 /** "Dec 24" → "12-24"; null if it can't be read. */
-function holidayKey(date: string): string | null {
+export function holidayKey(date: string): string | null {
   const m = date.trim().toLowerCase().match(/^([a-z]{3})[a-z]*\.?\s+(\d{1,2})$/);
   if (!m) return null;
   const mi = MONTHS.indexOf(m[1]);

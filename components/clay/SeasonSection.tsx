@@ -30,7 +30,7 @@ export default function SeasonSection() {
                 </div>
               ))}
             </dl>
-            <ArrowLink href="#holiday-hours" className="text-clay-ivory">
+            <ArrowLink href="/holidays" className="text-clay-ivory">
               {SEASON_COPY.cta}
             </ArrowLink>
           </div>

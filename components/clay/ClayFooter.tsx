@@ -7,9 +7,9 @@ import { PillButton } from "./ui";
 
 const headCls = "text-[15px] font-medium text-clay-ivory";
 
-export default function ClayFooter() {
+export default function ClayFooter({ showHolidayHours = true }: { showHolidayHours?: boolean }) {
   const ready = hoursConfigured(HOURS);
-  const season = isInSeasonWindow();
+  const season = isInSeasonWindow() && showHolidayHours;
 
   return (
     <footer id="visit" aria-labelledby="visit-title" className="scroll-mt-16 bg-clay-dark pb-24 text-clay-ivory md:pb-0">

@@ -66,12 +66,12 @@ export const SEASON_COPY = {
     { day: "Dec 25", note: "Christmas Day", hours: "Closed" },
     { day: "Jan 6", note: "Orthodox Christmas Eve", hours: "10 AM – 3 PM" },
   ],
-  cta: "See all holiday hours",
+  cta: "Holiday gifts and hours",
 };
 
 export const SEASON_PHOTOS = [
   { src: "/photos/real/gingerbread.jpg", alt: "Packaged gingerbread and holiday cookies stacked on a display", caption: "Gingerbread" },
-  { src: "/photos/real/chocolates-basket.jpg", alt: "A basket piled with boxed European chocolates", caption: "Boxed chocolates" },
+  { src: "/photos/real/chocolates-basket.jpg", alt: "A wicker basket of Toruńskie Pierniki gingerbread packs", caption: "Toruń gingerbread" },
   { src: "/photos/real-edited/sweets-table-crop.jpg", alt: "Gift boxes and sweets arranged on a display table", caption: "Gift boxes" },
 ] as const;
 

@@ -30,6 +30,7 @@ export default function WhatsInside() {
                 alt={i === active ? tile.alt : ""}
                 aria-hidden={i !== active}
                 fill
+                style={tile.pos ? { objectPosition: tile.pos } : undefined}
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 className={`object-cover transition-opacity duration-500 motion-reduce:transition-none ${i === active ? "opacity-100" : "opacity-0"}`}
               />

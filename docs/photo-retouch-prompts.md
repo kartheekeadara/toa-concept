@@ -244,3 +244,82 @@ Use the same edits as above, then relight the scene as late afternoon, about 30 
 - [ ] **Still their store:** the owner would recognise it straight away as their shop.
 
 If a result fails any box, don't use it. Keeping the original is better than using a fake-looking edit.
+
+---
+
+# Round 2: redo these 5 (round 1 results were held)
+
+Round 1 approved and now live: 01, 03, 04, 05, 06, 07, 09, 10, 11, 14.
+These 5 were held. **Use the select/brush tool for all of them.** Whole-image edits are what caused the problems.
+Start a new chat, paste the master prompt, attach the **original** from this folder (not the round-1 result), then paste the block.
+
+## 02-cheese-case.jpg (held: labels re-lettered)
+Round 1 turned "Swiss Cheese" into "Rwiss Cheese" and "Edam" into "Cdam", and wrote new labels.
+```
+Do this in small separate brush edits, not one whole-image edit:
+1. Brush over only the white price labels along the shelf edges and the bottom rail: "remove these labels, rebuild the shelf edge".
+2. Brush over only the bright white glare rectangles on the glass: "remove the reflection, keep the cheese behind it exactly as it is".
+3. Brush over only the grey trash bin at the bottom right: "remove it, rebuild floor and wall".
+Do NOT straighten or relight the whole photo. Do NOT touch any cheese label.
+```
+Afterwards I can do the straightening and warm colour on my side.
+
+## 08-wine-barrels.jpg (held: whole scene re-staged)
+Round 1 rebuilt the shelves and bottles from a new angle, so it's no longer this corner of the store.
+```
+Brush edits only, keep the original tilted angle:
+1. Brush over the row of shopping carts and the red basket on the left: "remove them, rebuild the floor, wall and window behind".
+2. Brush over the grey paving stone on the floor between the shelves: "remove it, rebuild the floor".
+3. Brush over the leaflet rack on the left wall: "remove it, rebuild the wall".
+Do NOT straighten, re-angle or re-stage anything. Do NOT move or redraw bottles.
+```
+I'll straighten it myself (a simple rotate and crop), which keeps every bottle real.
+
+## 12-chocolates-2.jpg (held: Krakus line re-lettered)
+Round 1 changed "in chocolate with icing" to "in chocolate and in icing".
+```
+Brush edits only:
+1. Brush over the "$6.99" sticker on the top Шармэль box: "remove the sticker, rebuild the printed box underneath".
+2. Same for the "$6.99" on the second Шармэль box.
+3. Same for the "$10.95" on the front Wedel box.
+Leave everything else exactly as it is, especially the Krakus gingerbread packs in the basket.
+```
+
+## 13-cookie-boxes.jpg (held: labels garbled)
+Round 1 produced "Belgian Mancy Truffles", "Marc Do Champagne" and a garbled sesame-bar logo.
+```
+Brush edits only, one sticker at a time:
+1. Brush over each price sticker separately (four on the Belgian boxes, two on the Forrelli trays, one on the orange box, two on the Коровка boxes): "remove the sticker, rebuild the box artwork underneath, don't change any text".
+2. Brush over the red plastic strip on the shelf edge at the top: "remove it, rebuild the wooden shelf edge".
+Do not touch the "Belgian", "Fancy Truffles", "Marc de Champagne" text or the sesame bar boxes.
+```
+
+## 15-storefront-2.jpg (held: building changed)
+Round 1 removed one of the two upper windows on the right and re-drew the facade.
+```
+Brush edits only, keep the original angle:
+1. Brush over the small paper notices on the door and windows (blue "Open" card, pink flyer, small white papers): "remove them, rebuild the glass behind". Keep the OPEN neon.
+2. Brush over the leaves and litter on the sidewalk: "remove them, rebuild clean concrete".
+Do NOT straighten, redraw the building, change any window, or touch the PARKING ONLY signs.
+```
+I'll straighten the verticals myself.
+
+## Edit log
+
+| File | Round | Result | Live? |
+|---|---|---|---|
+| 01-sweets-display | 1 | Approved | Yes |
+| 02-cheese-case | 1 | Held: labels re-lettered | No |
+| 03-sweets-boxes | 1 | Approved | Yes |
+| 04-interior-3 | 1 | Approved (smear rebuilt; the area right of the pillar is reconstructed, so the owner should confirm it matches) | Yes |
+| 05-deli-case-3 | 1 | Approved | Yes |
+| 06-candy-baskets-1 | 1 | Approved | Yes |
+| 07-jars-preserves | 1 | Approved (lids came out a bit more gold) | Yes |
+| 08-wine-barrels | 1 | Held: re-staged | No |
+| 09-gingerbread | 1 | Approved | Yes |
+| 10-chocolates-basket | 1 | Approved | Yes |
+| 11-sweets-table | 1 | Approved (background brand names are small and soft) | Yes |
+| 12-chocolates-2 | 1 | Held: Krakus line changed | No |
+| 13-cookie-boxes | 1 | Held: labels garbled | No |
+| 14-wine-display | 1 | Approved | Yes |
+| 15-storefront-2 | 1 | Held: window removed | No |

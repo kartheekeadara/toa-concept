@@ -7,16 +7,16 @@ export const CLAY_HEADLINE = "A European market,|right off|Providence Road.";
 export const CLAY_SUBHEAD = "Deli, sweets and pantry staples from Ukraine, Poland, Georgia and across Eastern Europe.";
 
 export const COUNTER_HERO = {
-  src: "/photos/real/sweets-display.jpg",
+  src: resolvePhoto("/photos/real/sweets-display.jpg"),
   alt: "European sweets and chocolates on display tables inside the store",
 };
 
 // Hero sequence: slow crossfade through the shop. First frame is the LCP image.
 export const HERO_FRAMES = [
-  { src: "/photos/real/sweets-display.jpg", alt: "European sweets and chocolates on display tables inside the store", pos: "50% 55%" },
-  { src: "/photos/real/cheese-case.jpg", alt: "Wedges of European cheese in the deli case", pos: "45% 50%" },
-  { src: "/photos/real/sweets-boxes.jpg", alt: "Boxed chocolates and wafers stacked on a wooden display", pos: "40% 60%" },
-  { src: "/photos/real/interior-3.jpg", alt: "The shop floor with display tables and wine barrels", pos: "50% 60%" },
+  { src: resolvePhoto("/photos/real/sweets-display.jpg"), alt: "European sweets and chocolates on display tables inside the store", pos: "50% 55%" },
+  { src: resolvePhoto("/photos/real/cheese-case.jpg"), alt: "Wedges of European cheese in the deli case", pos: "45% 50%" },
+  { src: resolvePhoto("/photos/real/sweets-boxes.jpg"), alt: "Boxed chocolates and wafers stacked on a wooden display", pos: "40% 60%" },
+  { src: resolvePhoto("/photos/real/interior-3.jpg"), alt: "The shop floor with display tables and wine barrels", pos: "50% 60%" },
 ] as const;
 
 export const INSIDE = {
@@ -29,6 +29,7 @@ export type InsideTile = {
   line: string;
   image: string;
   alt: string;
+  pos?: string;
 };
 
 export const INSIDE_TILES: InsideTile[] = [
@@ -37,6 +38,7 @@ export const INSIDE_TILES: InsideTile[] = [
     line: "Kielbasa sliced while you wait, cheese cut to order.",
     image: resolvePhoto("/photos/real/deli-case-3.jpg"),
     alt: "Deli case filled with smoked sausages, salami and cured meats",
+    pos: "50% 38%",
   },
   {
     name: "Sweets by the pound",
@@ -47,7 +49,7 @@ export const INSIDE_TILES: InsideTile[] = [
   {
     name: "Pantry & preserves",
     line: "Pickles, jarred vegetables, honey and spreads from home.",
-    image: "/photos/real/jars-preserves.jpg",
+    image: resolvePhoto("/photos/real/jars-preserves.jpg"),
     alt: "Shelves of jarred pickles, preserves and honey",
   },
   {
@@ -70,9 +72,9 @@ export const SEASON_COPY = {
 };
 
 export const SEASON_PHOTOS = [
-  { src: "/photos/real/gingerbread.jpg", alt: "Packaged gingerbread and holiday cookies stacked on a display", caption: "Gingerbread" },
-  { src: "/photos/real/chocolates-basket.jpg", alt: "A wicker basket of Toruńskie Pierniki gingerbread packs", caption: "Toruń gingerbread" },
-  { src: "/photos/real-edited/sweets-table-crop.jpg", alt: "Gift boxes and sweets arranged on a display table", caption: "Gift boxes" },
+  { src: resolvePhoto("/photos/real/gingerbread.jpg"), alt: "Packaged gingerbread and holiday cookies stacked on a display", caption: "Gingerbread" },
+  { src: resolvePhoto("/photos/real/chocolates-basket.jpg"), alt: "A wicker basket of Toruńskie Pierniki gingerbread packs", caption: "Toruń gingerbread" },
+  { src: resolvePhoto("/photos/real/sweets-table.jpg", "/photos/real-edited/sweets-table-crop.jpg"), alt: "Gift boxes and sweets arranged on a display table", caption: "Gift boxes" },
 ] as const;
 
 export const FROM_HOME = {

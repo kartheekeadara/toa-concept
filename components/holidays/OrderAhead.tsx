@@ -2,6 +2,7 @@ import Image from "next/image";
 import { CALL_HREF, STORE } from "@/app/content";
 import { ORDER_AHEAD } from "@/lib/holiday-content";
 import { PillButton } from "@/components/clay/ui";
+import { resolvePhoto } from "@/lib/photos";
 
 export default function OrderAhead() {
   return (
@@ -9,7 +10,7 @@ export default function OrderAhead() {
       <div className="grid gap-10 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-12">
         <div className="relative aspect-[4/3] overflow-hidden bg-clay-line lg:col-span-6">
           <Image
-            src="/photos/real-edited/sweets-table-crop.jpg"
+            src={resolvePhoto("/photos/real/sweets-table.jpg", "/photos/real-edited/sweets-table-crop.jpg")}
             alt="A display table of boxed sweets and gift boxes under baskets of treats"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"

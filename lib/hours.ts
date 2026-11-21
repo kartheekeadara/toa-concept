@@ -1,12 +1,14 @@
 export const DAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
 export type Day = (typeof DAYS)[number];
 export type DayHours = { open: string; close: string } | null;
-export type StoreHours = { timezone: string; week: Record<Day, DayHours> };
+/** A one-off day, e.g. { date: "Dec 24", hours: "10:00 AM – 3:00 PM" } or { date: "Dec 25", hours: "Closed" }. */
+export type HolidayHours = { date: string; hours: string; note?: string };
+export type StoreHours = { timezone: string; week: Record<Day, DayHours>; holidays?: HolidayHours[] };
 
 export type OpenStatus =
   | { kind: "placeholder" }
   | { kind: "open"; until: string }
-  | { kind: "closed"; opensAt?: string; opensDay?: string };
+  | { kind: "closed"; opensAt?: string; opensDay?: string; closedToday?: boolean };
 
 const isTime = (s: string) => /^([01]\d|2[0-3]):[0-5]\d$/.test(s);
 const toMin = (s: string) => Number(s.slice(0, 2)) * 60 + Number(s.slice(3));
@@ -28,32 +30,88 @@ export function hoursConfigured(hours: StoreHours) {
   });
 }
 
-/** Computes open/closed for "now" in the store's timezone. Returns placeholder if any hours are unconfirmed. */
-export function getOpenStatus(hours: StoreHours, now: Date = new Date()): OpenStatus {
-  if (!hoursConfigured(hours)) return { kind: "placeholder" };
+const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
+/** "Dec 24" → "12-24"; null if it can't be read. */
+function holidayKey(date: string): string | null {
+  const m = date.trim().toLowerCase().match(/^([a-z]{3})[a-z]*\.?\s+(\d{1,2})$/);
+  if (!m) return null;
+  const mi = MONTHS.indexOf(m[1]);
+  return mi < 0 ? null : `${String(mi + 1).padStart(2, "0")}-${m[2].padStart(2, "0")}`;
+}
+
+/** "10:00 AM" → "10:00", "3 PM" → "15:00". */
+function to24(s: string): string | null {
+  const m = s.trim().toUpperCase().match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/);
+  if (!m) return null;
+  let h = Number(m[1]) % 12;
+  if (m[3] === "PM") h += 12;
+  return `${String(h).padStart(2, "0")}:${m[2] ?? "00"}`;
+}
+
+/** "Closed" → null, "10:00 AM – 3:00 PM" → { open, close }, anything unreadable → undefined (ignored). */
+function parseHolidayHours(hours: string): DayHours | undefined {
+  if (/^closed$/i.test(hours.trim())) return null;
+  const [o, c] = hours.split(/\s*[–—-]\s*/);
+  const open = o && to24(o);
+  const close = c && to24(c);
+  return open && close ? { open, close } : undefined;
+}
+
+/** Calendar date (y, m, d) and minutes since midnight in the store's timezone. */
+function zonedNow(timezone: string, now: Date) {
   const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: hours.timezone,
-    weekday: "short",
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
     hourCycle: "h23",
   }).formatToParts(now);
-  const wd = parts.find((p) => p.type === "weekday")!.value.toLowerCase().slice(0, 3) as Day;
-  const nowMin = Number(parts.find((p) => p.type === "hour")!.value) * 60 + Number(parts.find((p) => p.type === "minute")!.value);
-  const idx = DAYS.indexOf(wd);
+  const get = (t: string) => Number(parts.find((p) => p.type === t)!.value);
+  return { y: get("year"), m: get("month"), d: get("day"), min: get("hour") * 60 + get("minute") };
+}
 
-  const today = hours.week[wd];
-  if (today && nowMin >= toMin(today.open) && nowMin < toMin(today.close)) {
+/** Hours for the store-local date `offset` days from (y, m, d), with holiday overrides applied. */
+function hoursOn(hours: StoreHours, y: number, m: number, d: number, offset: number) {
+  const date = new Date(Date.UTC(y, m - 1, d + offset));
+  const day = DAYS[date.getUTCDay()];
+  const key = `${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")}`;
+  for (const h of hours.holidays ?? []) {
+    if (holidayKey(h.date) !== key) continue;
+    const parsed = parseHolidayHours(h.hours);
+    if (parsed !== undefined) return { day, hours: parsed, holiday: true };
+  }
+  return { day, hours: hours.week[day], holiday: false };
+}
+
+/**
+ * Computes open/closed for "now" in the store's timezone (America/New_York), honoring holiday
+ * overrides (e.g. Dec 25 → closed all day). Returns placeholder if any weekly hours are unconfirmed.
+ */
+export function getOpenStatus(hours: StoreHours, now: Date = new Date()): OpenStatus {
+  if (!hoursConfigured(hours)) return { kind: "placeholder" };
+
+  const { y, m, d, min } = zonedNow(hours.timezone, now);
+  const today = hoursOn(hours, y, m, d, 0).hours;
+
+  if (today && min >= toMin(today.open) && min < toMin(today.close)) {
     return { kind: "open", until: fmtTime(today.close) };
   }
-  if (today && nowMin < toMin(today.open)) return { kind: "closed", opensAt: fmtTime(today.open) };
-  for (let i = 1; i <= 7; i++) {
-    const d = DAYS[(idx + i) % 7];
-    const h = hours.week[d];
-    if (h) return { kind: "closed", opensAt: fmtTime(h.open), opensDay: i === 1 ? "tomorrow" : LONG[d] };
+  if (today && min < toMin(today.open)) return { kind: "closed", opensAt: fmtTime(today.open) };
+  for (let i = 1; i <= 14; i++) {
+    const next = hoursOn(hours, y, m, d, i);
+    if (next.hours) {
+      return {
+        kind: "closed",
+        opensAt: fmtTime(next.hours.open),
+        opensDay: i === 1 ? "tomorrow" : LONG[next.day],
+        closedToday: today === null,
+      };
+    }
   }
-  return { kind: "closed" };
+  return { kind: "closed", closedToday: today === null };
 }
 
 /** Weekly hours for display, Monday first, consecutive days with the same hours grouped ("Mon–Fri"). */

@@ -1,60 +1,57 @@
-import Image from "next/image";
-import { FROM_HOME } from "@/lib/clay-content";
-import { MediaPanel, Reveal, eyebrowClass } from "./ui";
+import { BRANDS, FROM_HOME, LANGUAGES_LINE } from "@/lib/clay-content";
+import { Reveal, eyebrowClass } from "./ui";
 
 export default function FromHome() {
   return (
-    <section aria-labelledby="from-home-title" className="overflow-x-clip bg-clay-section">
-      <div className="px-5 py-16 sm:px-8 sm:py-24 lg:py-28">
+    <section aria-labelledby="from-home-title" className="overflow-x-clip border-t border-clay-line bg-clay-paper">
+      <div className="px-5 py-14 sm:px-8 sm:py-16">
         <Reveal>
           <p className={eyebrowClass}>{FROM_HOME.eyebrow}</p>
           <h2
             id="from-home-title"
             data-draft
-            className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,5.5vw,4.5rem)] font-medium leading-[1] tracking-[-0.035em] text-clay-ink"
+            className="mt-3 max-w-4xl font-display text-[clamp(2rem,4.5vw,3.5rem)] font-medium leading-[1.02] tracking-[-0.035em] text-clay-ink"
           >
             {FROM_HOME.title}
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-24">
-              <MediaPanel className="aspect-[4/5] bg-clay-line">
-                <Image src={FROM_HOME.image} alt={FROM_HOME.imageAlt} fill className="object-cover" sizes="(min-width: 1024px) 40vw, 100vw" />
-              </MediaPanel>
-              <p data-draft className="mt-5 max-w-sm text-[16px] leading-relaxed text-clay-muted">
-                {FROM_HOME.line}
-              </p>
-            </div>
-          </div>
-
-          <ol className="min-w-0 border-t border-clay-ink/15 lg:col-span-7">
-            {FROM_HOME.rows.map((row, i) => (
-              <li key={row.native} className="border-b border-clay-ink/15">
-                <Reveal className="flex gap-4 py-6 sm:gap-8 sm:py-8">
-                  <span className="w-6 shrink-0 font-mono text-[12px] tabular-nums text-clay-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p
-                      lang={row.lang}
-                      className="font-display text-[clamp(1.75rem,5vw,3.5rem)] font-medium leading-none tracking-[-0.03em] text-clay-ink"
-                    >
-                      {row.native}
-                    </p>
-                    <p data-draft className="mt-2 text-[14px] text-clay-muted">
-                      {row.items}
-                    </p>
-                  </div>
-                  <span className="hidden shrink-0 self-start pt-1 text-right text-[14px] text-clay-muted sm:block sm:text-[15px]">
-                    {row.english}
-                  </span>
-                </Reveal>
+        <div className="mt-8">
+          <h3 className="text-[15px] font-medium text-clay-ink">Brands you&apos;ll find</h3>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {BRANDS.map((b) => (
+              <li
+                key={b}
+                lang={b === "Toruńskie" ? "pl" : undefined}
+                className="rounded-pill border border-clay-ink/15 px-4 py-2 text-[15px] text-clay-ink"
+              >
+                {b}
               </li>
             ))}
-          </ol>
+          </ul>
+          {/* TODO(owner): confirm the staff languages before launch. */}
+          <p data-draft className="mt-4 text-[16px] text-clay-muted">
+            {LANGUAGES_LINE}
+          </p>
         </div>
+
+        <ol className="mt-10 grid grid-cols-1 border-t border-clay-ink/15 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
+          {FROM_HOME.rows.map((row) => (
+            <li key={row.native} className="min-w-0 border-b border-clay-ink/15 py-5">
+              <p
+                lang={row.lang}
+                className="font-display text-[clamp(1.75rem,3.2vw,2.5rem)] font-medium leading-none tracking-[-0.03em] text-clay-ink"
+              >
+                {row.native}
+              </p>
+              <p className="mt-2 text-[14px] text-clay-muted">
+                <span className="text-clay-ink">{row.english}</span>
+                <span aria-hidden> · </span>
+                <span data-draft>{row.items}</span>
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

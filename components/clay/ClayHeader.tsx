@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { DIRECTIONS_URL } from "@/app/content";
+import { CALL_HREF, DIRECTIONS_URL, STORE } from "@/app/content";
 import StoreStatus from "@/components/StoreStatus";
 import { PillButton } from "./ui";
 
@@ -10,21 +10,34 @@ export default function ClayHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-clay-line/80 bg-clay-paper/90 backdrop-blur-md">
       <div className="flex h-14 items-center justify-between gap-4 px-5 sm:h-16 sm:px-8">
-        <Link href="/#top" className="relative block h-9 w-[120px] shrink-0 sm:h-10">
-          <Image
-            src="/photos/real/logo.png"
-            alt="Taste of Europe Gourmet Foods"
-            fill
-            className="object-contain object-left"
-            sizes="120px"
-            priority
-          />
+        <Link href="/#top" className="flex h-11 w-[120px] shrink-0 items-center">
+          <span className="relative block h-9 w-full sm:h-10">
+            <Image
+              src="/photos/real/logo.png"
+              alt="Taste of Europe Gourmet Foods"
+              fill
+              className="object-contain object-left"
+              sizes="120px"
+              priority
+            />
+          </span>
         </Link>
         <div className="flex items-center gap-3 sm:gap-6">
           <StoreStatus compact className="!text-clay-muted shrink-0 text-[13px]" />
-          <PillButton href={DIRECTIONS_URL} external variant="primary">
-            Directions
-          </PillButton>
+          {/* Directions + Call live in the sticky bar on mobile; the header carries them from md up. */}
+          {STORE.phone ? (
+            <a
+              href={CALL_HREF}
+              className="hidden min-h-11 items-center px-2 text-[14px] font-medium text-clay-ink underline-offset-4 hover:underline md:inline-flex"
+            >
+              Call {STORE.phone}
+            </a>
+          ) : null}
+          <span className="hidden md:inline-flex">
+            <PillButton href={DIRECTIONS_URL} external variant="primary">
+              Directions
+            </PillButton>
+          </span>
         </div>
       </div>
     </header>

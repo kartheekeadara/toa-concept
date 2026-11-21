@@ -32,8 +32,9 @@ export const CALL_HREF = phoneDigits ? `tel:${phoneDigits}` : "#visit";
 export const INSTAGRAM_URL = filled(store.instagramUrl) ? store.instagramUrl : "#";
 
 export const HOURS: StoreHours = {
-  timezone: store.timezone,
+  timezone: store.timezone || "America/New_York",
   week: store.hours as StoreHours["week"],
+  holidays: store.holidayHours,
 };
 
 export const HOLIDAY_HOURS = store.holidayHours.filter(

@@ -2,45 +2,47 @@ import { resolvePhoto } from "@/lib/photos";
 
 export const CLAY_HEADLINE = "A European market, right off Providence Road.";
 
-export const CLAY_STATEMENT =
-  "Cheese cut to order at the counter. Kielbasa sliced while you wait. Candy by the pound, jars from home, and a wine wall you can browse before you check out. Walk in hungry — leave with a full bag.";
-
 export const COUNTER_HERO = {
   src: "/photos/real/sweets-display.jpg",
   alt: "European sweets and chocolates on display tables inside the store",
 };
 
-export type CounterPanel = {
+export const INSIDE = {
+  eyebrow: "What's inside",
+  title: "Walk in hungry, leave with a full bag.",
+};
+
+export type InsideTile = {
   name: string;
   line: string;
   image: string;
-  backdrop: string;
+  alt: string;
 };
 
-export const COUNTERS: CounterPanel[] = [
+export const INSIDE_TILES: InsideTile[] = [
   {
     name: "Deli counter",
-    line: "We slice kielbasa while you wait and cut cheese to order.",
+    line: "Kielbasa sliced while you wait, cheese cut to order.",
     image: resolvePhoto("/photos/real/deli-case-3.jpg"),
-    backdrop: "#D4C9BC",
+    alt: "Deli case filled with smoked sausages, salami and cured meats",
   },
   {
     name: "Sweets by the pound",
-    line: "Wrapped candies, chocolate bars and boxed sweets you scoop yourself.",
+    line: "Wrapped candies you scoop yourself, plus chocolate bars and boxes.",
     image: resolvePhoto("/photos/real/candy-baskets-1.jpg"),
-    backdrop: "#E5D9CE",
+    alt: "Wicker baskets of individually wrapped European candies",
   },
   {
     name: "Pantry & preserves",
     line: "Pickles, jarred vegetables, honey and spreads from home.",
     image: "/photos/real/jars-preserves.jpg",
-    backdrop: "#DDD6C9",
+    alt: "Shelves of jarred pickles, preserves and honey",
   },
   {
     name: "Wine & drinks",
-    line: "Bottles for dinner, beer from Eastern Europe and sodas you will not see at the chain store.",
+    line: "Wine, Eastern European beer and sodas the chain stores don't stock.",
     image: resolvePhoto("/photos/real/wine-barrels.jpg"),
-    backdrop: "#C9BFB4",
+    alt: "Wine bottles displayed on wooden barrels",
   },
 ];
 
@@ -52,17 +54,20 @@ export const SEASON_COPY = {
 };
 
 export const SEASON_PHOTOS = [
-  { src: "/photos/real/gingerbread.jpg", alt: "Gingerbread and holiday sweets on display" },
-  { src: "/photos/real/chocolates-basket.jpg", alt: "Basket of boxed chocolates" },
-  { src: "/photos/real-edited/sweets-table-crop.jpg", alt: "Gift boxes and sweets on a display table" },
+  { src: "/photos/real/gingerbread.jpg", alt: "Packaged gingerbread and holiday cookies stacked on a display", caption: "Gingerbread" },
+  { src: "/photos/real/chocolates-basket.jpg", alt: "A basket piled with boxed European chocolates", caption: "Boxed chocolates" },
+  { src: "/photos/real-edited/sweets-table-crop.jpg", alt: "Gift boxes and sweets arranged on a display table", caption: "Gift boxes" },
 ] as const;
+
+// Brands visible on the shelves in the store's own photos.
+export const BRANDS = ["Milka", "Krakus", "Noyan", "Borjomi", "Toruńskie", "Roshen", "Bounty"] as const;
+
+// TODO(owner): confirm which languages staff actually speak before this goes live.
+export const LANGUAGES_LINE = "Ask us in Ukrainian, Russian or Polish.";
 
 export const FROM_HOME = {
   eyebrow: "From home",
   title: "Find the food you miss.",
-  line: "For people who miss it, and for neighbors curious about what's in the jar.",
-  image: resolvePhoto("/photos/real/pantry-aisle.jpg"),
-  imageAlt: "An aisle of jars and packaged goods inside the store",
   rows: [
     { native: "Україна", english: "Ukraine", lang: "uk", items: "chocolates, sunflower halva" },
     { native: "Polska", english: "Poland", lang: "pl", items: "pierogi, wafer bars" },
@@ -86,7 +91,7 @@ export const FAQ = [
   },
   {
     q: "Where do I park?",
-    a: "{{CONFIRM_PARKING}}",
-    placeholder: true,
+    a: "Right out front — look for the red Taste of Europe parking signs.",
+    placeholder: false,
   },
 ] as const;

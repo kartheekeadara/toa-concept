@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { HOURS } from "@/app/content";
-import { getOpenStatus } from "@/lib/hours";
+import { getOpenStatus, type OpenStatus } from "@/lib/hours";
 import { Ph } from "./ui";
 
 export default function StoreStatus({ className = "", compact = false }: { className?: string; compact?: boolean }) {
-  const [status, setStatus] = useState(() => getOpenStatus(HOURS));
+  // Computed on the client only: the page is statically built, so a server value would be stale.
+  const [status, setStatus] = useState<OpenStatus | null>(null);
 
   useEffect(() => {
     const tick = () => setStatus(getOpenStatus(HOURS));
@@ -14,6 +15,8 @@ export default function StoreStatus({ className = "", compact = false }: { class
     const id = window.setInterval(tick, 60_000);
     return () => window.clearInterval(id);
   }, []);
+
+  if (!status) return <span className={`inline-block min-w-12 ${className}`} aria-hidden />;
 
   if (status.kind === "placeholder") {
     return (
@@ -27,7 +30,9 @@ export default function StoreStatus({ className = "", compact = false }: { class
   const text =
     open
       ? `Open until ${status.until}`
-      : status.opensAt
+      : status.closedToday
+        ? `Closed today${status.opensAt ? ` · opens ${status.opensDay ? `${status.opensDay} ` : ""}${status.opensAt}` : ""}`
+        : status.opensAt
         ? `Closed · opens ${status.opensDay ? `${status.opensDay} ` : ""}${status.opensAt}`
         : "Closed";
   const short = open ? "Open" : "Closed";

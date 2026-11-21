@@ -90,10 +90,10 @@ export default function ClayFooter() {
 
           <div>
             <h3 className={eyebrowClass}>Say hello</h3>
-            <ul className="mt-4 space-y-3 text-[17px]">
+            <ul className="mt-3 space-y-1 text-[17px]">
               {STORE.phone ? (
                 <li>
-                  <a href={CALL_HREF} className="underline-offset-4 hover:underline">
+                  <a href={CALL_HREF} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
                     {STORE.phone}
                   </a>
                 </li>
@@ -104,7 +104,7 @@ export default function ClayFooter() {
                     href={INSTAGRAM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
+                    className="inline-flex min-h-11 items-center gap-2 underline-offset-4 hover:underline"
                   >
                     <InstagramIcon />
                     {STORE.instagram ?? "Instagram"}

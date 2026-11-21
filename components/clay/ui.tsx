@@ -45,7 +45,7 @@ export function ArrowLink({
   className?: string;
 }) {
   return (
-    <Link href={href} className={`group mt-6 inline-flex items-center gap-2 text-[15px] underline-offset-4 hover:underline ${className}`}>
+    <Link href={href} className={`group mt-4 inline-flex min-h-11 items-center gap-2 text-[15px] underline-offset-4 hover:underline ${className}`}>
       {children}
       <span aria-hidden className="text-brand-red-deep transition-transform group-hover:translate-x-0.5">
         →
@@ -54,16 +54,20 @@ export function ArrowLink({
   );
 }
 
+/**
+ * Content is always visible. The only motion is a small one-time lift, and it never
+ * gates opacity, so text can't get stuck hidden if the observer doesn't fire.
+ */
 export function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ y: 12 }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true, amount: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -80,15 +84,8 @@ export function MediaPanel({
   style?: React.CSSProperties;
 }) {
   return (
-    <motion.div
-      className={`relative isolate w-full overflow-hidden ${className}`}
-      style={style}
-      initial={{ opacity: 0.94 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1.0, ease: "easeOut" }}
-    >
+    <div className={`relative isolate w-full overflow-hidden ${className}`} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

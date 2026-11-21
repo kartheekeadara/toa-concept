@@ -11,8 +11,8 @@ export const COUNTER_HERO = {
 };
 
 export const INSIDE = {
-  eyebrow: "What's inside",
-  title: "Walk in hungry, leave with a full bag.",
+  title: "Inside the shop",
+  intro: "Four counters under one roof. Choose one to look closer.",
 };
 
 export type InsideTile = {
@@ -52,7 +52,11 @@ export const INSIDE_TILES: InsideTile[] = [
 export const SEASON_COPY = {
   title: "Holiday sweets are in.",
   line: "Gingerbread, boxed chocolates and gift boxes we only stack this time of year.",
-  highlights: ["Christmas Eve, Dec 24 · 10–3", "Closed Dec 25", "Orthodox Christmas Eve, Jan 6 · 10–3"],
+  dates: [
+    { day: "Dec 24", note: "Christmas Eve", hours: "10 AM – 3 PM" },
+    { day: "Dec 25", note: "Christmas Day", hours: "Closed" },
+    { day: "Jan 6", note: "Orthodox Christmas Eve", hours: "10 AM – 3 PM" },
+  ],
   cta: "See all holiday hours",
 };
 
@@ -63,14 +67,14 @@ export const SEASON_PHOTOS = [
 ] as const;
 
 // Brands visible on the shelves in the store's own photos.
-export const BRANDS = ["Milka", "Krakus", "Noyan", "Borjomi", "Toruńskie", "Roshen", "Bounty"] as const;
+export const BRANDS = ["Milka", "Krakus", "Noyan", "Borjomi", "Toruńskie", "Roshen"] as const;
 
 // TODO(owner): confirm which languages staff actually speak before this goes live.
 export const LANGUAGES_LINE = "Ask us in Ukrainian, Russian or Polish.";
 
 export const FROM_HOME = {
-  eyebrow: "From home",
-  title: "Find the food you miss.",
+  title: "Six countries on our shelves",
+  intro: "Brands people know from home, and staff who can help in your language.",
   rows: [
     { native: "Україна", english: "Ukraine", lang: "uk", items: "chocolates, sunflower halva" },
     { native: "Polska", english: "Poland", lang: "pl", items: "pierogi, wafer bars" },

@@ -13,11 +13,11 @@ export default function ClayStickyBar() {
           href={DIRECTIONS_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-14 items-center justify-center bg-brand-red-deep text-[14px] font-medium text-white"
+          className="flex min-h-14 items-center justify-center bg-clay-dark text-[15px] font-medium text-clay-ivory"
         >
           Directions
         </a>
-        <a href={CALL_HREF} className="flex min-h-14 items-center justify-center text-[14px] font-medium text-clay-ink">
+        <a href={CALL_HREF} className="flex min-h-14 items-center justify-center text-[15px] font-medium text-clay-ink">
           {STORE.phone ? "Call" : "Visit"}
         </a>
       </div>

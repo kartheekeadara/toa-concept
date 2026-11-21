@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 export const eyebrowClass = "text-[14px] font-medium uppercase tracking-[0.14em] text-brand-red-deep";
@@ -15,12 +14,17 @@ export function PillButton({
   href: string;
   children: ReactNode;
   external?: boolean;
-  variant?: "primary" | "dark";
+  variant?: "primary" | "dark" | "light" | "outline";
 }) {
-  const cls =
-    variant === "primary"
-      ? "inline-flex min-h-12 items-center rounded-pill bg-brand-red-deep px-6 text-[14px] font-medium text-white transition-colors hover:bg-[#b0131a]"
-      : "inline-flex min-h-12 items-center rounded-pill bg-clay-dark px-6 text-[14px] font-medium text-clay-paper transition-opacity hover:opacity-85";
+  const base = "inline-flex min-h-12 items-center justify-center rounded-pill px-7 text-[15px] font-medium transition-colors";
+  const cls = {
+    // on linen
+    primary: `${base} bg-clay-dark text-clay-ivory hover:bg-clay-deep`,
+    dark: `${base} bg-clay-dark text-clay-ivory hover:bg-clay-deep`,
+    // on green or over photos
+    light: `${base} bg-clay-ivory text-clay-dark hover:bg-white`,
+    outline: `${base} border border-clay-ivory/35 text-clay-ivory hover:border-clay-ivory/70`,
+  }[variant];
   if (href.startsWith("tel:") || href.startsWith("#")) {
     return (
       <a href={href} className={cls}>
@@ -52,33 +56,18 @@ export function ArrowLink({
   className?: string;
 }) {
   return (
-    <Link href={href} className={`group mt-4 inline-flex min-h-11 items-center gap-2 text-[15px] underline-offset-4 hover:underline ${className}`}>
+    <a
+      href={href}
+      className={`mt-4 inline-flex min-h-11 items-center text-[15px] underline decoration-clay-brass decoration-1 underline-offset-[6px] hover:decoration-2 ${className}`}
+    >
       {children}
-      <span aria-hidden className="text-brand-red-deep transition-transform group-hover:translate-x-0.5">
-        →
-      </span>
-    </Link>
+    </a>
   );
 }
 
-/**
- * Content is always visible. The only motion is a small one-time lift, and it never
- * gates opacity, so text can't get stuck hidden if the observer doesn't fire.
- */
+/** Plain wrapper. Per-section entrance animations were removed on purpose. */
 export function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-  return (
-    <motion.div
-      className={className}
-      initial={{ y: 12 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true, amount: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 export function MediaPanel({

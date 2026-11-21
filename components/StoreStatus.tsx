@@ -40,7 +40,7 @@ export default function StoreStatus({ className = "", compact = false }: { class
   return (
     <span className={`inline-flex items-center gap-2 text-[14px] text-ink-muted ${className}`}>
       <span
-        className={`inline-block h-2 w-2 shrink-0 rounded-full ${open ? "bg-emerald-600" : "bg-ink-muted"}`}
+        className={`inline-block h-2 w-2 shrink-0 rounded-full ${open ? "bg-emerald-500" : "bg-current opacity-50"}`}
         aria-hidden
       />
       {compact ? (

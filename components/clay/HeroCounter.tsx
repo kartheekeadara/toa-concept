@@ -8,39 +8,37 @@ import { PillButton } from "./ui";
 
 export default function HeroCounter() {
   return (
-    <section aria-labelledby="hero-title" className="relative min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] bg-clay-dark">
-      <Image
-        src={COUNTER_HERO.src}
-        alt={COUNTER_HERO.alt}
-        fill
-        className="object-cover object-center"
-        sizes="100vw"
-        priority
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-clay-dark/95 via-clay-dark/50 to-clay-dark/20" />
-      <div className="relative flex min-h-[calc(100svh-3.5rem)] sm:min-h-[calc(100svh-4rem)] flex-col justify-end px-5 pb-20 pt-8 sm:px-8 sm:pb-10">
-        <div className="max-w-5xl">
-          <h1 id="hero-title" data-draft className="font-display text-hero-clay text-clay-paper">
-            {CLAY_HEADLINE}
-          </h1>
-          <p data-draft className="mt-4 max-w-xl text-[17px] leading-relaxed text-clay-paper/90 sm:text-[19px]">
-            {CLAY_SUBHEAD}
-          </p>
-          <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-clay-paper/85">
-            <StoreStatus className="!text-[15px] !text-clay-paper" />
-            <span aria-hidden className="text-clay-paper/50">·</span>
-            <span>{STORE.street}</span>
-          </p>
-          <div className="mt-5 sm:mt-6">
+    <section aria-labelledby="hero-title" className="relative isolate min-h-[calc(100svh-3.5rem)] bg-clay-deep sm:min-h-[calc(100svh-4rem)]">
+      <Image src={COUNTER_HERO.src} alt={COUNTER_HERO.alt} fill className="-z-10 object-cover object-center" sizes="100vw" priority />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(14,22,18,0.94)_0%,rgba(14,22,18,0.62)_38%,rgba(14,22,18,0.18)_75%,rgba(14,22,18,0.28)_100%)]" />
+      <div className="flex min-h-[calc(100svh-3.5rem)] flex-col justify-end px-5 pb-24 pt-10 sm:min-h-[calc(100svh-4rem)] sm:px-8 sm:pb-14 lg:px-12">
+        <h1
+          id="hero-title"
+          data-draft
+          className="max-w-[14ch] font-display text-[clamp(2.9rem,7.4vw,7rem)] font-light leading-[0.96] tracking-[-0.02em] text-clay-ivory"
+        >
+          {CLAY_HEADLINE}
+        </h1>
+        <div className="mt-8 grid gap-8 border-t border-clay-ivory/20 pt-6 sm:mt-10 md:grid-cols-[1fr_auto] md:items-end">
+          <div>
+            <p data-draft className="max-w-xl text-[17px] leading-relaxed text-clay-ivory/90 sm:text-[19px]">
+              {CLAY_SUBHEAD}
+            </p>
+            <p className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[15px] text-clay-ivory/80">
+              <StoreStatus className="!text-[15px] !text-clay-ivory" />
+              <span>{STORE.street}</span>
+            </p>
+          </div>
+          <div>
             {/* Mobile: the sticky bar already has Directions + Call, so the hero leads into the page instead. */}
             <a
               href="#inside"
-              className="inline-flex min-h-12 items-center rounded-pill bg-brand-red-deep px-6 text-[14px] font-medium text-white transition-colors hover:bg-[#b0131a] md:hidden"
+              className="inline-flex min-h-12 items-center rounded-pill bg-clay-ivory px-7 text-[15px] font-medium text-clay-dark md:hidden"
             >
-              What&apos;s inside <span aria-hidden className="ml-2">↓</span>
+              See what&apos;s inside
             </a>
             <span className="hidden md:inline-flex">
-              <PillButton href={DIRECTIONS_URL} external variant="primary">
+              <PillButton href={DIRECTIONS_URL} external variant="light">
                 Get directions
               </PillButton>
             </span>

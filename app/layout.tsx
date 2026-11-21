@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Onest } from "next/font/google";
+import { Noto_Serif_Display, Noto_Serif_Georgian, Onest } from "next/font/google";
 import "./globals.css";
 import { PRESENTATION } from "@/lib/flags";
 
@@ -7,6 +7,22 @@ const onest = Onest({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600"],
   variable: "--font-clay",
+  display: "swap",
+});
+
+const serif = Noto_Serif_Display({
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: "variable",
+  axes: ["wdth"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+// Georgian glyphs (საქართველო) in the same serif voice.
+const georgian = Noto_Serif_Georgian({
+  subsets: ["georgian"],
+  weight: ["300", "400"],
+  variable: "--font-georgian",
   display: "swap",
 });
 
@@ -26,14 +42,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAF7F2",
+  themeColor: "#F4F2EC",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={onest.variable}>
+    <html lang="en" className={`${onest.variable} ${serif.variable} ${georgian.variable}`}>
       <body className={`${onest.className} min-h-screen bg-clay-paper text-[18px] text-clay-ink antialiased`}>
-        <style>{`.font-display { font-family: var(--font-clay), system-ui, sans-serif; }`}</style>
         <a
           href="#main"
           className="sr-only z-[100] rounded-pill bg-clay-ink px-5 py-3 text-[15px] text-clay-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-3"

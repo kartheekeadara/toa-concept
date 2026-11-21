@@ -8,8 +8,8 @@ import { PillButton } from "./ui";
 
 export default function ClayHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-clay-line/80 bg-clay-paper/90 backdrop-blur-md">
-      <div className="flex h-14 items-center justify-between gap-4 px-5 sm:h-16 sm:px-8">
+    <header className="sticky top-0 z-50 border-b border-clay-line bg-clay-paper/92 backdrop-blur-md">
+      <div className="flex h-14 items-center justify-between gap-4 px-5 sm:h-16 sm:px-8 lg:px-12">
         <Link href="/#top" className="flex h-11 w-[120px] shrink-0 items-center">
           <span className="relative block h-9 w-full sm:h-10">
             <Image
@@ -23,12 +23,12 @@ export default function ClayHeader() {
           </span>
         </Link>
         <div className="flex items-center gap-3 sm:gap-6">
-          <StoreStatus compact className="!text-clay-muted shrink-0 text-[13px]" />
+          <StoreStatus compact className="!text-clay-muted shrink-0 !text-[14px]" />
           {/* Directions + Call live in the sticky bar on mobile; the header carries them from md up. */}
           {STORE.phone ? (
             <a
               href={CALL_HREF}
-              className="hidden min-h-11 items-center px-2 text-[14px] font-medium text-clay-ink underline-offset-4 hover:underline md:inline-flex"
+              className="hidden min-h-11 items-center px-2 text-[15px] text-clay-ink underline-offset-[6px] hover:underline md:inline-flex"
             >
               Call {STORE.phone}
             </a>

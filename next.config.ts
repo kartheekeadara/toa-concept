@@ -7,8 +7,9 @@ const nextConfig: NextConfig = {
   devIndicators: { appIsrStatus: false, buildActivity: false },
   // expose the flag to client components too (see lib/flags.ts)
   env: { PRESENTATION: presentation ? "true" : "false" },
+  // NEXT_DIST_DIR lets a check build run without clobbering a running dev server.
   // separate build folder so the review server (3100) and presentation server (3101) can run side by side
-  distDir: presentation ? ".next-present" : ".next",
+  distDir: process.env.NEXT_DIST_DIR || (presentation ? ".next-present" : ".next"),
 };
 
 export default nextConfig;

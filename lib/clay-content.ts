@@ -2,6 +2,9 @@ import { resolvePhoto } from "@/lib/photos";
 
 export const CLAY_HEADLINE = "A European market, right off Providence Road.";
 
+// Answers "what is this place?" for the neighbor driving past, in one line.
+export const CLAY_SUBHEAD = "Deli, sweets and pantry staples from Ukraine, Poland, Georgia and across Eastern Europe.";
+
 export const COUNTER_HERO = {
   src: "/photos/real/sweets-display.jpg",
   alt: "European sweets and chocolates on display tables inside the store",
@@ -47,9 +50,9 @@ export const INSIDE_TILES: InsideTile[] = [
 ];
 
 export const SEASON_COPY = {
-  title: "The season",
-  line: "Gingerbread, boxed chocolates and a few things we only stack this time of year.",
-  highlights: ["Dec 24 · 10–3", "Jan 6, Orthodox Christmas Eve · 10–3"],
+  title: "Holiday sweets are in.",
+  line: "Gingerbread, boxed chocolates and gift boxes we only stack this time of year.",
+  highlights: ["Christmas Eve, Dec 24 · 10–3", "Closed Dec 25", "Orthodox Christmas Eve, Jan 6 · 10–3"],
   cta: "See all holiday hours",
 };
 

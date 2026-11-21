@@ -13,9 +13,16 @@ const onest = Onest({
 export const metadata: Metadata = {
   title: PRESENTATION ? "Taste of Europe Gourmet Foods" : "Taste of Europe Gourmet Foods · Concept",
   description: PRESENTATION
-    ? "European grocery and deli in Charlotte, NC."
+    ? "European grocery and deli on Providence Rd in Charlotte, NC. Deli counter, sweets by the pound and pantry staples from Ukraine, Poland, Georgia and more."
     : "Concept homepage mockup. Not the official website.",
+  // Concept only: keep it out of search until it's on the store's real domain.
   robots: { index: false, follow: false },
+  openGraph: {
+    title: "Taste of Europe Gourmet Foods",
+    description: "European grocery and deli on Providence Rd, Charlotte.",
+    images: [{ url: "/photos/real-edited/storefront-2-crop.jpg", width: 1260, height: 1100 }],
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
@@ -27,6 +34,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={onest.variable}>
       <body className={`${onest.className} min-h-screen bg-clay-paper text-[18px] text-clay-ink antialiased`}>
         <style>{`.font-display { font-family: var(--font-clay), system-ui, sans-serif; }`}</style>
+        <a
+          href="#main"
+          className="sr-only z-[100] rounded-pill bg-clay-ink px-5 py-3 text-[15px] text-clay-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-3"
+        >
+          Skip to content
+        </a>
         {children}
       </body>
     </html>

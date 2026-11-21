@@ -16,14 +16,14 @@ export default function WhatsInside() {
             {INSIDE.title}
           </h2>
         </Reveal>
-        <ul className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-10 lg:gap-x-8">
+        <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 lg:mt-10 lg:gap-x-8">
           {INSIDE_TILES.map((tile) => (
             <li key={tile.name}>
-              <div className="relative aspect-[16/10] overflow-hidden bg-clay-line lg:aspect-[2/1]">
-                <Image src={tile.image} alt={tile.alt} fill className="object-cover" sizes="(min-width: 640px) 50vw, 100vw" />
+              <div className="relative aspect-square overflow-hidden sm:aspect-[16/10] bg-clay-line lg:aspect-[2/1]">
+                <Image src={tile.image} alt={tile.alt} fill className="object-cover" sizes="50vw" />
               </div>
-              <h3 className="mt-4 text-[20px] font-medium tracking-[-0.01em] text-clay-ink">{tile.name}</h3>
-              <p data-draft className="mt-1 max-w-md text-[16px] leading-relaxed text-clay-muted">
+              <h3 className="mt-3 text-[16px] font-medium sm:mt-4 sm:text-[20px] tracking-[-0.01em] text-clay-ink">{tile.name}</h3>
+              <p data-draft className="mt-1 max-w-md text-[14px] leading-snug sm:text-[16px] sm:leading-relaxed text-clay-muted">
                 {tile.line}
               </p>
             </li>

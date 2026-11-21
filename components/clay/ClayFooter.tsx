@@ -4,6 +4,7 @@ import { formatWeekWithToday, hoursConfigured } from "@/lib/hours";
 import { isInSeasonWindow } from "@/lib/season";
 import { PRESENTATION } from "@/lib/flags";
 import { InstagramIcon, Val } from "@/components/ui";
+import StoreStatus from "@/components/StoreStatus";
 import { PillButton, eyebrowClass } from "./ui";
 
 export default function ClayFooter() {
@@ -12,10 +13,33 @@ export default function ClayFooter() {
 
   return (
     <footer id="visit" aria-labelledby="visit-title" className="scroll-mt-16 bg-clay-section pb-20 text-clay-ink md:pb-8">
-      <h2 id="visit-title" className="sr-only">
-        Visit
-      </h2>
-      <div className="px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+      {/* Peak-end: the page closes on the one thing we want people to do next. */}
+      <div className="border-b border-clay-ink/10 px-5 pb-12 pt-16 sm:px-8 sm:pt-20 lg:flex lg:items-end lg:justify-between lg:gap-12">
+        <div>
+          <h2
+            id="visit-title"
+            data-draft
+            className="font-display text-[clamp(3.5rem,10vw,8rem)] font-medium leading-[0.9] tracking-[-0.045em] text-clay-ink"
+          >
+            Come by.
+          </h2>
+          <p className="mt-5 max-w-lg text-[18px] leading-relaxed text-clay-muted">
+            {STORE.street}, {STORE.cityLine}. Parking right out front.
+          </p>
+          <StoreStatus className="mt-2 !text-[16px] !text-clay-ink" />
+        </div>
+        <div className="mt-8 flex flex-wrap gap-3 lg:mt-0 lg:shrink-0">
+          <PillButton href={DIRECTIONS_URL} external variant="primary">
+            Get directions
+          </PillButton>
+          {STORE.phone ? (
+            <PillButton href={CALL_HREF} variant="dark">
+              Call {STORE.phone}
+            </PillButton>
+          ) : null}
+        </div>
+      </div>
+      <div className="px-5 py-14 sm:px-8 sm:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
             <Image
@@ -38,11 +62,6 @@ export default function ClayFooter() {
               <br />
               {STORE.cityLine}
             </address>
-            <div className="mt-5">
-              <PillButton href={DIRECTIONS_URL} external variant="primary">
-                Directions
-              </PillButton>
-            </div>
           </div>
 
           <div>

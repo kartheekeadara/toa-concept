@@ -20,7 +20,14 @@ export function PillButton({
   const cls =
     variant === "primary"
       ? "inline-flex min-h-12 items-center rounded-pill bg-brand-red-deep px-6 text-[14px] font-medium text-white transition-colors hover:bg-[#b0131a]"
-      : "inline-flex min-h-11 items-center rounded-pill bg-clay-dark px-6 text-[14px] font-medium text-clay-paper transition-opacity hover:opacity-85";
+      : "inline-flex min-h-12 items-center rounded-pill bg-clay-dark px-6 text-[14px] font-medium text-clay-paper transition-opacity hover:opacity-85";
+  if (href.startsWith("tel:") || href.startsWith("#")) {
+    return (
+      <a href={href} className={cls}>
+        {children}
+      </a>
+    );
+  }
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>

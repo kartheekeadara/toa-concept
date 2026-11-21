@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { DIRECTIONS_URL } from "@/app/content";
-import { CLAY_HEADLINE, COUNTER_HERO } from "@/lib/clay-content";
+import { DIRECTIONS_URL, STORE } from "@/app/content";
+import StoreStatus from "@/components/StoreStatus";
+import { CLAY_HEADLINE, CLAY_SUBHEAD, COUNTER_HERO } from "@/lib/clay-content";
 import { PillButton } from "./ui";
 
 export default function HeroCounter() {
@@ -22,6 +23,14 @@ export default function HeroCounter() {
           <h1 id="hero-title" data-draft className="font-display text-hero-clay text-clay-paper">
             {CLAY_HEADLINE}
           </h1>
+          <p data-draft className="mt-4 max-w-xl text-[17px] leading-relaxed text-clay-paper/90 sm:text-[19px]">
+            {CLAY_SUBHEAD}
+          </p>
+          <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-clay-paper/85">
+            <StoreStatus className="!text-[15px] !text-clay-paper" />
+            <span aria-hidden className="text-clay-paper/50">·</span>
+            <span>{STORE.street}</span>
+          </p>
           <div className="mt-5 sm:mt-6">
             {/* Mobile: the sticky bar already has Directions + Call, so the hero leads into the page instead. */}
             <a

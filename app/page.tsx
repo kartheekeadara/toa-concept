@@ -1,4 +1,5 @@
 import ReviewMode from "@/components/ReviewMode";
+import StoreSchema from "@/components/StoreSchema";
 import ClayHeader from "@/components/clay/ClayHeader";
 import ClayFooter from "@/components/clay/ClayFooter";
 import ClayStickyBar from "@/components/clay/ClayStickyBar";
@@ -12,10 +13,12 @@ import WhatsInside from "@/components/clay/WhatsInside";
 export default function Home() {
   return (
     <>
+      <StoreSchema />
       <ReviewMode />
       <SmoothScroll>
         <ClayHeader />
-        <main id="top">
+        <main id="main" tabIndex={-1} className="outline-none">
+          <span id="top" />
           <HeroCounter />
           <SeasonSection />
           <WhatsInside />

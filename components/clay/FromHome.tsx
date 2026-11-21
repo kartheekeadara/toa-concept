@@ -35,18 +35,18 @@ export default function FromHome() {
           </p>
         </div>
 
-        <ol className="mt-10 grid grid-cols-1 border-t border-clay-ink/15 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
+        <ol className="mt-10 grid grid-cols-2 gap-x-4 border-t border-clay-ink/15 sm:gap-x-10 lg:grid-cols-3">
           {FROM_HOME.rows.map((row) => (
             <li key={row.native} className="min-w-0 border-b border-clay-ink/15 py-5">
               <p
                 lang={row.lang}
-                className="font-display text-[clamp(1.75rem,3.2vw,2.5rem)] font-medium leading-none tracking-[-0.03em] text-clay-ink"
+                className="break-words font-display text-[clamp(1.375rem,3.2vw,2.5rem)] font-medium leading-none tracking-[-0.03em] text-clay-ink"
               >
                 {row.native}
               </p>
-              <p className="mt-2 text-[14px] text-clay-muted">
-                <span className="text-clay-ink">{row.english}</span>
-                <span aria-hidden> · </span>
+              <p className="mt-2 text-[14px] leading-snug text-clay-muted">
+                <span className="block text-clay-ink sm:inline">{row.english}</span>
+                <span aria-hidden className="hidden sm:inline"> · </span>
                 <span data-draft>{row.items}</span>
               </p>
             </li>

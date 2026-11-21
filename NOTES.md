@@ -126,6 +126,26 @@ CHOPT) and were translated to the web.
 - `scripts/contrast.mjs` measured cream text over the old photo hero. The hero no longer has text over a photo, so it doesn't apply any more.
 - Lighthouse accessibility scores 100 on mobile (both modes) and desktop.
 
+## concept-v2, round 4 (2026-11-21)
+- **Removed all red uppercase labels** (The season, Inside the store, Shop by country, Visit us, and the footer's Hours/Contact labels).
+  Red is now used only for the primary buttons and small arrows.
+- **Holiday photo captions** are plain text, not links.
+- **Nav:**
+  - It hides when you scroll down and comes back when you scroll up. It never hides while it has keyboard focus.
+  - The current section's link is underlined.
+  - The open/closed status is a chip with a live dot.
+  - On desktop the Call button shows the phone number.
+  - On mobile it's an icon menu button; the sheet has numbered links.
+- **What's inside:** an edge-to-edge photo grid (`components/InsideGrid.tsx`) with no gutters or rounded cards and names set large on the photos.
+  Cheeses is the 2×2 feature, and Drinks and Wine are the wide tiles. AisleGuide was removed.
+- **Countries:** a framed menu board with a centred title and a diamond rule. Each country shows its own name in its own language (with a `lang` attribute) and its items in italic.
+- **Footer** is light (cream-deep), so the real logo can sit in it:
+  - The logo, address, and Directions plus the phone number.
+  - A white "door sign" card with the regular and holiday hours.
+  - The storefront photo.
+  - A "From the shelves" photo strip that links to Instagram, and a slim charcoal bottom bar.
+- Lighthouse accessibility scores 100 on mobile (both modes) and desktop.
+
 ## Photos (Part 1, v1 only)
 All from Unsplash, free under the [Unsplash License](https://unsplash.com/license)
 (free for commercial use, no attribution required, credit given anyway).

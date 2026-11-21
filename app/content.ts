@@ -78,13 +78,14 @@ export const HOLIDAY_ITEMS = [
 
 /** Taste of home: countries with two things from each. */
 export const COUNTRIES = [
-  { name: "Ukraine", items: ["Chocolates", "Sunflower halva"] },
-  { name: "Poland", items: ["Pierogi", "Wafer bars"] },
-  { name: "Georgia", items: ["Borjomi", "Churchkhela"] },
-  { name: "Lithuania", items: ["Dark rye bread", "Farmer's cheese"] },
-  { name: "Bulgaria", items: ["White cheese", "Lyutenitsa"] },
-  { name: "Moldova", items: ["Wine", "Preserves"] },
-];
+  // native: the country's name in its own language (lang = BCP 47 code, so screen readers pronounce it right)
+  { name: "Ukraine", native: "Україна", lang: "uk", items: ["Chocolates", "Sunflower halva"] },
+  { name: "Poland", native: "Polska", lang: "pl", items: ["Pierogi", "Wafer bars"] },
+  { name: "Georgia", native: "საქართველო", lang: "ka", items: ["Borjomi", "Churchkhela"] },
+  { name: "Lithuania", native: "Lietuva", lang: "lt", items: ["Dark rye bread", "Farmer's cheese"] },
+  { name: "Bulgaria", native: "България", lang: "bg", items: ["White cheese", "Lyutenitsa"] },
+  { name: "Moldova", native: "Moldova", lang: "ro", items: ["Wine", "Preserves"] },
+]
 
 export const COPY = {
   // COPY-DRAFT
@@ -146,4 +147,14 @@ export const STORE_PHOTOS = [
   { photo: "/photos/real/jars-honey.jpg", alt: "Shelves of honey and preserves in jars" },
   { photo: "/photos/real/smoked-fish.jpg", alt: "A tray of herring and salmon in the cooler" },
   { photo: "/photos/real/sweets-boxes.jpg", alt: "Boxed chocolates and sweets on a wooden table" },
+];
+
+/** Footer photo strip (store photos, no people, no prices visible). */
+export const FOOTER_STRIP = [
+  { photo: "/photos/real/sushki-bakery.jpg", alt: "Bags of sushki and baked rings" },
+  { photo: "/photos/real/cakes-case.jpg", alt: "Whole cakes in a glass case" },
+  { photo: "/photos/real/jars-preserves.jpg", alt: "Jars of rose petal preserves" },
+  { photo: "/photos/real/chocolates-2.jpg", alt: "Boxes of chocolates on a wooden table" },
+  { photo: "/photos/real/dessert-case-2.jpg", alt: "Slices of cake in the dessert case" },
+  { photo: "/photos/real/sour-cabbage.jpg", alt: "A tub of sour cabbage" },
 ];

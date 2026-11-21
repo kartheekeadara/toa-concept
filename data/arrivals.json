@@ -1,0 +1,33 @@
+{
+  "_readme": "Just arrived strip. Edit this list to update the homepage: up to 4 items show. Photos go in /public/photos. Every value in {{BRACES}} is a placeholder to replace with a real product.",
+  "items": [
+    {
+      "name": "{{ARRIVAL_1_NAME}}",
+      "category": "Preserves",
+      "origin": "{{ORIGIN}}",
+      "photo": "/photos/real/jars-preserves.jpg",
+      "alt": "Jars of preserves"
+    },
+    {
+      "name": "{{ARRIVAL_2_NAME}}",
+      "category": "Pickles",
+      "origin": "{{ORIGIN}}",
+      "photo": "/photos/real/pickled-tomatoes.jpg",
+      "alt": "Jars of pickled tomatoes and cucumbers"
+    },
+    {
+      "name": "{{ARRIVAL_3_NAME}}",
+      "category": "Spreads",
+      "origin": "{{ORIGIN}}",
+      "photo": "/photos/real/squash-garnish.jpg",
+      "alt": "Jars of squash spread"
+    },
+    {
+      "name": "{{ARRIVAL_4_NAME}}",
+      "category": "Drinks",
+      "origin": "{{ORIGIN}}",
+      "photo": "/photos/real/drinks-shelf-2.jpg",
+      "alt": "Shelves of imported drinks"
+    }
+  ]
+}

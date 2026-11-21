@@ -1,0 +1,23 @@
+{
+  "_readme": "Fill these in with confirmed details from the store. Leave a value as \"\" (or as its {{PLACEHOLDER}}) until it's confirmed: in review mode it shows as a {{PLACEHOLDER}} chip, in presentation mode it's hidden. Hours are 24h \"HH:MM\" in the store's timezone; set a day to null if the store is closed that day. announcements: the lines in the thin bar under the nav, e.g. \"Holiday candy baskets are in\" or \"Fresh smoked fish this week\"; the bar disappears if none are filled in. holidayHours: rows under Holiday hours in Visit us, e.g. { \"date\": \"Dec 24\", \"hours\": \"9:00 AM – 3:00 PM\" }; delete rows you don't need.",
+  "phone": "",
+  "email": "",
+  "instagram": "",
+  "instagramUrl": "",
+  "timezone": "America/New_York",
+  "announcements": ["{{ANNOUNCEMENT_1}}", "{{ANNOUNCEMENT_2}}"],
+  "holidayHours": [
+    { "date": "{{HOLIDAY_DATE_1}}", "hours": "{{HOLIDAY_HOURS_1}}" },
+    { "date": "{{HOLIDAY_DATE_2}}", "hours": "{{HOLIDAY_HOURS_2}}" },
+    { "date": "{{HOLIDAY_DATE_3}}", "hours": "{{HOLIDAY_HOURS_3}}" }
+  ],
+  "hours": {
+    "mon": { "open": "", "close": "" },
+    "tue": { "open": "", "close": "" },
+    "wed": { "open": "", "close": "" },
+    "thu": { "open": "", "close": "" },
+    "fri": { "open": "", "close": "" },
+    "sat": { "open": "", "close": "" },
+    "sun": { "open": "", "close": "" }
+  }
+}

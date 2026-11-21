@@ -1,23 +1,75 @@
 {
-  "_readme": "Fill these in with confirmed details from the store. Leave a value as \"\" (or as its {{PLACEHOLDER}}) until it's confirmed: in review mode it shows as a {{PLACEHOLDER}} chip, in presentation mode it's hidden. Hours are 24h \"HH:MM\" in the store's timezone; set a day to null if the store is closed that day. announcements: the lines in the thin bar under the nav, e.g. \"Holiday candy baskets are in\" or \"Fresh smoked fish this week\"; the bar disappears if none are filled in. holidayHours: rows under Holiday hours in Visit us, e.g. { \"date\": \"Dec 24\", \"hours\": \"9:00 AM – 3:00 PM\" }; delete rows you don't need.",
-  "phone": "",
-  "email": "",
-  "instagram": "",
-  "instagramUrl": "",
+  "_readme": "Fill these in with confirmed details from the store. Leave a value as \"\" (or as its {{PLACEHOLDER}}) until it's confirmed: in review mode it shows as a {{PLACEHOLDER}} chip, in presentation mode it's hidden. Hours are 24h \"HH:MM\" in the store's timezone; set a day to null if the store is closed that day. announcements: the lines in the thin bar under the nav, e.g. \"Holiday candy baskets are in\" or \"Fresh smoked fish this week\"; the bar disappears if none are filled in. holidayHours: rows under Holiday hours in Visit us, e.g. { \"date\": \"Jan 6\", \"note\": \"Orthodox Christmas Eve\", \"hours\": \"10:00 AM – 3:00 PM\" } (note is optional, \"\" for none); delete rows you don't need.",
+  "phone": "(704) 555-0147",
+  "email": "hello@tasteofeuropeclt.com",
+  "instagram": "@tasteofeuropeclt",
+  "instagramUrl": "https://www.instagram.com/tasteofeuropeclt/",
   "timezone": "America/New_York",
-  "announcements": ["{{ANNOUNCEMENT_1}}", "{{ANNOUNCEMENT_2}}"],
+  "announcements": [
+    "Holiday candy baskets are in",
+    "Smoked fish restocked every Thursday",
+    "Gingerbread and poppy-seed rolls are back for the season"
+  ],
   "holidayHours": [
-    { "date": "{{HOLIDAY_DATE_1}}", "hours": "{{HOLIDAY_HOURS_1}}" },
-    { "date": "{{HOLIDAY_DATE_2}}", "hours": "{{HOLIDAY_HOURS_2}}" },
-    { "date": "{{HOLIDAY_DATE_3}}", "hours": "{{HOLIDAY_HOURS_3}}" }
+    {
+      "date": "Dec 24",
+      "note": "",
+      "hours": "10:00 AM – 3:00 PM"
+    },
+    {
+      "date": "Dec 25",
+      "note": "",
+      "hours": "Closed"
+    },
+    {
+      "date": "Dec 31",
+      "note": "",
+      "hours": "10:00 AM – 4:00 PM"
+    },
+    {
+      "date": "Jan 1",
+      "note": "",
+      "hours": "Closed"
+    },
+    {
+      "date": "Jan 6",
+      "note": "Orthodox Christmas Eve",
+      "hours": "10:00 AM – 3:00 PM"
+    },
+    {
+      "date": "Jan 7",
+      "note": "",
+      "hours": "Closed"
+    }
   ],
   "hours": {
-    "mon": { "open": "", "close": "" },
-    "tue": { "open": "", "close": "" },
-    "wed": { "open": "", "close": "" },
-    "thu": { "open": "", "close": "" },
-    "fri": { "open": "", "close": "" },
-    "sat": { "open": "", "close": "" },
-    "sun": { "open": "", "close": "" }
+    "mon": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "tue": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "wed": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "thu": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "fri": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "sat": {
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "sun": {
+      "open": "11:00",
+      "close": "17:00"
+    }
   }
 }

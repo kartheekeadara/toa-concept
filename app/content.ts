@@ -33,8 +33,10 @@ export const ADDRESS_QUERY = encodeURIComponent(
   "Taste of Europe Gourmet Foods, 11926 Providence Rd W, Charlotte, NC 28277"
 );
 export const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${ADDRESS_QUERY}`;
-const phoneDigits = STORE.phone ? STORE.phone.replace(/[^\d+]/g, "") : "";
-// tel:{{PHONE}}. With no phone in store.json, "Call" buttons scroll to Visit us instead of dialing.
+const rawDigits = STORE.phone ? STORE.phone.replace(/[^\d+]/g, "") : "";
+// US 10-digit numbers get +1, e.g. (704) 555-0147 → tel:+17045550147
+const phoneDigits = /^\d{10}$/.test(rawDigits) ? `+1${rawDigits}` : rawDigits;
+// tel: link. With no phone in store.json, "Call" buttons scroll to Visit us instead of dialing.
 export const CALL_HREF = phoneDigits ? `tel:${phoneDigits}` : "#visit";
 export const INSTAGRAM_URL = filled(store.instagramUrl) ? store.instagramUrl : "#";
 
@@ -83,8 +85,15 @@ export const HOLIDAY_ITEMS = [
   { name: "Gift-ready sweets", photo: "/photos/real/sweets-table.jpg", alt: "A wooden table of boxed chocolates and sweets" },
 ];
 
-/** Taste of home. NEEDS OWNER INPUT: which countries the store's products come from. */
-export const COUNTRIES = ["{{COUNTRY_1}}", "{{COUNTRY_2}}", "{{COUNTRY_3}}", "{{COUNTRY_4}}", "{{COUNTRY_5}}", "{{COUNTRY_6}}"];
+/** Taste of home: countries with two things from each. */
+export const COUNTRIES = [
+  { name: "Ukraine", items: ["Chocolates", "Sunflower halva"] },
+  { name: "Poland", items: ["Pierogi", "Wafer bars"] },
+  { name: "Georgia", items: ["Borjomi", "Churchkhela"] },
+  { name: "Lithuania", items: ["Dark rye bread", "Farmer's cheese"] },
+  { name: "Bulgaria", items: ["White cheese", "Lyutenitsa"] },
+  { name: "Moldova", items: ["Wine", "Preserves"] },
+];
 
 export const COPY = {
   // COPY-DRAFT
@@ -94,20 +103,24 @@ export const COPY = {
 
   // COPY-DRAFT
   holidayEyebrow: "The season",
-  holidayTitle: "{{HOLIDAY_HEADLINE}}",
+  holidayTitle: "Everything for the holiday table.",
 
   orderTitle: "Order ahead from the deli",
-  orderBody: "{{ORDER_AHEAD_COPY}}",
+  orderBody: "Call before you come. We'll have your deli order sliced, weighed and waiting at the counter.",
+  orderNote: "Bigger orders? Give us a day's notice.",
 
   builderTitle: "Build a party platter",
 
   // COPY-DRAFT
   insideEyebrow: "What's inside",
-  // NEEDS OWNER INPUT: Taste of Home headline (Kartheek writes the final line).
-  insideTitle: "{{TASTE_OF_HOME_HEADLINE}}",
+
+  mosaicEyebrow: "Inside the store",
+  mosaicLine: "Come hungry. Leave with a full bag.",
 
   // COPY-DRAFT
   countryEyebrow: "Shop by country",
+  countryTitle: "The brands you grew up with.",
+  countryNote: "Don't see it? Ask at the counter — we can usually get it.",
 
   // COPY-DRAFT
   visitEyebrow: "Visit us",
@@ -116,13 +129,25 @@ export const COPY = {
   footerLine: "Imported cheeses, deli, sweets and pantry staples.",
 };
 
-/** Big serif list. Photos are from the store. */
+/** Category rows: photo, name, one plain line. Photos are from the store. */
 export const CATEGORIES = [
-  { name: "Cheeses", photo: "/photos/real/cheese-case.jpg", alt: "Cheeses in the deli case" },
-  { name: "Sausages & Deli", photo: "/photos/real/deli-sausages.jpg", alt: "Sausages and smoked meats in the deli case" },
-  { name: "Sweets & Candy", photo: "/photos/real/candy-baskets-1.jpg", alt: "Wicker baskets of candy" },
-  { name: "Pantry & Preserves", photo: "/photos/real/preserves-shelves.jpg", alt: "Shelves of jarred preserves" },
-  { name: "Smoked Fish & Salads", photo: "/photos/real/smoked-fish-case.jpg", alt: "Smoked fish in the deli case" },
-  { name: "Drinks", photo: "/photos/real/drinks-shelf-1.jpg", alt: "Shelves of bottled drinks" },
-  { name: "Wine", photo: "/photos/real/wine-display.jpg", alt: "Wine bottles in wooden crates on a barrel" },
+  // COPY-DRAFT: one-liners
+  { name: "Cheeses", line: "Hard, soft and smoked cheeses from the deli case.", photo: "/photos/real/cheese-case.jpg", alt: "Blocks of cheese in the deli case" },
+  { name: "Sausages & Deli", line: "Kielbasa, salami and smoked meats, sliced at the counter.", photo: "/photos/real/deli-sausages.jpg", alt: "Sausages and smoked meats in the deli case" },
+  { name: "Sweets & Candy", line: "Wrapped candies by the pound, chocolate bars and boxed sweets.", photo: "/photos/real/candy-baskets-1.jpg", alt: "Wicker baskets of wrapped candy" },
+  { name: "Pantry & Preserves", line: "Pickles, jarred vegetables, preserves and spreads.", photo: "/photos/real/preserves-shelves.jpg", alt: "Shelves of jarred preserves and pickles" },
+  { name: "Smoked Fish & Salads", line: "Mackerel, herring and salads made to go with them.", photo: "/photos/real/smoked-fish-case.jpg", alt: "Smoked fish in the deli case" },
+  { name: "Drinks", line: "Kvass, Borjomi, juices and imported beer.", photo: "/photos/real/drinks-shelf-1.jpg", alt: "Shelves of bottled juices and drinks" },
+  { name: "Wine", line: "A wine wall with bottles for the table and for gifts.", photo: "/photos/real/wine-display.jpg", alt: "Wine bottles in wooden crates beside a barrel" },
+];
+
+/** "Inside the store" mosaic. First photo is the big tile on desktop. No captions. */
+export const MOSAIC = [
+  { photo: "/photos/real/wine-barrels.jpg", alt: "Wine shelves and oak barrels by the front windows" },
+  // candy-baskets-2 swapped for candy-baskets-4: a staff member's face is visible in candy-baskets-2
+  { photo: "/photos/real/candy-baskets-4.jpg", alt: "A stand of wicker baskets filled with wrapped candies" },
+  { photo: "/photos/real/interior-wide-1.jpg", alt: "Wide view of the store with display tables of sweets" },
+  { photo: "/photos/real/smoked-fish.jpg", alt: "A tray of herring and salmon in the cooler" },
+  { photo: "/photos/real/sweets-display.jpg", alt: "Tables of chocolate bars and baskets of sweets" },
+  { photo: "/photos/real/jars-honey.jpg", alt: "Shelves of honey and preserves in jars" },
 ];

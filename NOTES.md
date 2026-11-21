@@ -95,6 +95,21 @@ CHOPT) and were translated to the web.
 - Lighthouse accessibility (mobile) scores 100 in both modes.
 - The Unsplash files in `public/photos/*.jpg` (stollen, panettone and so on) are unused. v2 only uses `public/photos/real/`.
 
+## concept-v2, round 2 (2026-11-20)
+- **Data filled in** (mockup data from Kartheek, not confirmed by the store): hours, holiday hours (including Jan 6, Orthodox Christmas Eve),
+  phone (704) 555-0147, email, Instagram, three ticker lines, all headlines, and countries with two items each.
+  No placeholder chips render in either mode. `BOARD` (platter builder, off) still has placeholders.
+- **Red is an accent only.** Visit is now brand-ink with cream text; the holiday panel is cream-deep; category names are ink and turn red on hover.
+  Red text on charcoal uses `brand-red-light` `#FF8A85` (5.00:1). The `brand-red-tint` token is gone.
+- **Order:** nav → ticker → hero → holidays (#holidays) → order ahead (#deli) → categories → inside the store (#inside) → countries → visit (#visit) → footer.
+- **Photos:** storefront-4 replaces storefront-1, which had a drawn circle and a person in the doorway.
+  candy-baskets-4 replaces candy-baskets-2, where a staff member's face is visible.
+  interior-wide-1 shows two people from behind, with no faces visible. It's kept because it was requested.
+- **Hero:** one bottom-left brand-ink gradient (95% → 85% → 55% → clear), bottom-up on phones, plus a soft text shadow.
+  Worst pixel under the H1 is 3.46 at 390px and 3.05 at 1440px (AA large is 3.0). The tagline is ≥ 6.7.
+- The footer line "Concept mockup. Not the official website." now shows in both modes, because the contact details are mockup data.
+- Lighthouse accessibility (mobile) scores 100 in both modes.
+
 ## Photos (Part 1, v1 only)
 All from Unsplash, free under the [Unsplash License](https://unsplash.com/license)
 (free for commercial use, no attribution required, credit given anyway).
